@@ -1,0 +1,144 @@
+/* Global Reset */
+
+
+body {
+    font-family: 'Arial', sans-serif;
+    color: #fff;
+    background-image: url('../assets/images/proArt1.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+
+    align-items: center; /* Center the body content vertically */
+}
+
+/* Header Styling */
+header {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 20px 10%;
+    background: rgba(41, 109, 235, 0.719);  /* Transparent blue background */
+    margin-bottom: 50px; /* Creates space below the header */
+
+}
+
+/* Navigation Styling */
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end; /* Align navigation links to the far right */
+    gap: 10px;
+}
+
+nav ul li {
+    display: inline-block;
+}
+
+nav ul li a {
+    text-decoration: none;
+    font-size: 1.2rem;
+    color: #030303;
+    padding: 10px 15px;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+/* Remove Hover Effect */
+nav ul li a:hover {
+    background-color: blue;
+    border-color: transparent;
+    color: #030303;
+}
+
+/* Text Shadow for Readability */
+h1 {
+    font-size: 2rem;
+    color: #fff;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    header {
+        padding: 20px;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav ul li a {
+        font-size: 1.5rem;
+    }
+}
+
+
+
+/* Get Started Button Styling */
+#Get-started {
+    display: inline-block;
+    background: linear-gradient(90deg, #007BFF, #0056D2); /* Gradient Blue Background */
+    position: absolute;
+    color: #fff; 
+    font-size: 1.2rem; 
+    font-weight: bold;
+    padding: 15px 30px; 
+    border: none;
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    transition: all 0.3s ease; 
+    text-transform: uppercase;
+    text-align: center;
+    outline: none;
+    bottom: 300px; /* Adjust as needed */
+    left: 50%; /* Centers the button horizontally */
+}
+
+
+#Get-started:hover {
+    background: linear-gradient(90deg, #0056D2, #007BFF); 
+    transform: translateY(-3px); /* Lift button slightly on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Deeper shadow on hover */
+}
+
+#Get-started:active {
+    transform: translateY(0); /* Reset translation on click */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Original shadow */
+}
+
+/*Homepage edit */
+#homepage-background {
+    background-size: cover; /* Makes the image cover the entire background */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Ensures the image doesn't repeat */
+    height: 80vh; /* Makes the background fill the entire viewport height */
+    width: 100%; /* Ensures it spans the full width */
+    margin: 0; /* Removes default body margins */
+    font-family: 'Arial', sans-serif; /* Optional: Set the font style for the page */
+    color: #fff; /* Optional: Default text color for readability */
+}
+
+
+/* Styling for the Homepage Container */
+#Homepage-container {
+    max-width: 30%; /* Set the width of the container */
+    height: auto;
+    padding: 20px; /* Adds spacing inside the container */
+    margin-left: 0; 
+    left:0;
+    margin-top: 20px; /* Adds some space at the top */
+
+}
+
+/* Styling for the Welcome Message */
+#welcome-message {
+    font-size: 1.5rem; /* Makes the text larger */
+    color: #000000; /* Dark gray for readability */
+    text-align: left; /* Aligns the text to the left */
+    margin: 0; /* Removes default paragraph margins */
+}
