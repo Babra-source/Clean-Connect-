@@ -1,28 +1,24 @@
+
 /* Global Reset */
-
-
 body {
-    font-family: 'Arial', sans-serif;
     color: #fff;
-    background-image: url('../assets/images/proArt1.jpg');
-    background-size: cover;
-    background-position: center;
     height: 100vh;
     display: flex;
-
     align-items: center; /* Center the body content vertically */
+    margin: 0;
 }
 
 /* Header Styling */
 header {
+    font-family: 'Arial', sans-serif;
     width: 100%;
     position: absolute;
     top: 0;
-    right: 0;
-    padding: 20px 10%;
-    background: rgba(41, 109, 235, 0.719);  /* Transparent blue background */
+    left: 0;
+    padding: 10px 0; /* Reduced padding to prevent clipping */
+    background: white;  /* Transparent blue background */
     margin-bottom: 50px; /* Creates space below the header */
-
+    
 }
 
 /* Navigation Styling */
@@ -39,7 +35,6 @@ nav ul li {
 
 nav ul li a {
     text-decoration: none;
-    font-size: 1.2rem;
     color: #030303;
     padding: 10px 15px;
     border: 2px solid transparent;
@@ -49,11 +44,51 @@ nav ul li a {
 
 /* Remove Hover Effect */
 nav ul li a:hover {
-    background-color: blue;
+    background-color: #0056D2;
     border-color: transparent;
     color: #030303;
 }
 
+/* Full-width HR */
+.full-width-line {
+    width: 100%;
+    border: none; /* Optional: removes the default border styles */
+    border-top: 1px solid #000; /* Custom border style */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+}
+
+
+/* Get Started Button Styling */
+#Get-started {
+    display: inline-block;
+    background: linear-gradient(90deg, #007BFF, #0056D2); /* Gradient Blue Background */
+    color: #fff; 
+    font-size: 1.2rem; 
+    font-weight: bold;
+    padding: 15px 30px; 
+    border: none;
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    transition: all 0.3s ease; 
+    text-transform: uppercase;
+    text-align: center;
+    outline: none;
+    bottom: 300px; /* Adjust as needed */
+    left: 40%; /* Centers the button horizontally */
+}
+
+
+#Get-started:hover {
+    background: linear-gradient(90deg, #0056D2, #007BFF); 
+    transform: translateY(-3px); /* Lift button slightly on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Deeper shadow on hover */
+}
+
+#Get-started:active {
+    transform: translateY(0); /* Reset translation on click */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Original shadow */
+}
 /* Text Shadow for Readability */
 h1 {
     font-size: 2rem;
@@ -79,66 +114,109 @@ h1 {
 
 
 
-/* Get Started Button Styling */
-#Get-started {
-    display: inline-block;
-    background: linear-gradient(90deg, #007BFF, #0056D2); /* Gradient Blue Background */
-    position: absolute;
-    color: #fff; 
-    font-size: 1.2rem; 
-    font-weight: bold;
-    padding: 15px 30px; 
-    border: none;
-    border-radius: 8px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
-    transition: all 0.3s ease; 
-    text-transform: uppercase;
+/* Cards container */
+.cards-container {
+    display: flex;
+    justify-content: space-around; /* Distribute cards evenly */
+    gap: 20px;
+    margin-top: 500px;
+    padding: 20px;
+    flex-wrap: wrap; /* Allow cards to wrap on smaller screens */
+}
+
+/* Card styling */
+.card {
+    background-color: #129ae9;
+    color: #333;
+    width: 250px;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 1000px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
-    outline: none;
-    bottom: 300px; /* Adjust as needed */
-    left: 50%; /* Centers the button horizontally */
+    transition: all 0.3s ease;
+}
+
+/* Card hover effect */
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Card header styling */
+.card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+}
+
+/* Card paragraph styling */
+.card p {
+    font-size: 1rem;
+    line-height: 1.5;
 }
 
 
-#Get-started:hover {
-    background: linear-gradient(90deg, #0056D2, #007BFF); 
-    transform: translateY(-3px); /* Lift button slightly on hover */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Deeper shadow on hover */
-}
 
-#Get-started:active {
-    transform: translateY(0); /* Reset translation on click */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Original shadow */
-}
 
-/*Homepage edit */
+/* Homepage Background */
 #homepage-background {
-    background-size: cover; /* Makes the image cover the entire background */
-    background-position: center; /* Centers the image */
-    background-repeat: no-repeat; /* Ensures the image doesn't repeat */
-    height: 80vh; /* Makes the background fill the entire viewport height */
-    width: 100%; /* Ensures it spans the full width */
-    margin: 0; /* Removes default body margins */
-    font-family: 'Arial', sans-serif; /* Optional: Set the font style for the page */
-    color: #fff; /* Optional: Default text color for readability */
+    background-size: cover; /* Makes the image cover the entire screen */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    height: 100vh; /* Full height of the viewport */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centers the content vertically */
+    text-align: center; /* Center the text */
 }
 
 
-/* Styling for the Homepage Container */
+
+
+
 #Homepage-container {
-    max-width: 30%; /* Set the width of the container */
-    height: auto;
-    padding: 20px; /* Adds spacing inside the container */
-    margin-left: 0; 
-    left:0;
-    margin-top: 20px; /* Adds some space at the top */
+    position: absolute; /* Position relative to the background container */
+    left: 0; /* Place container on the left side of the image */
+    width: 40%; /* You can adjust this width based on the content */
+    padding: 20px; /* Adds space around the content */
+    color: #fff; /* Text color */
+}
+
+/* Welcome Message Styling */
+#welcome-message {
+    font-size: 1.8rem; /* Adjust font size */
+    color: #fff; /* White text for readability on the background */
+    text-align: left; /* Align text to the left */
+    margin-bottom: 20px; /* Space between paragraphs */
+    letter-spacing: 1px; /* Adds spacing between letters */
+    line-height: 1.6; /* Makes the lines more readable */
+    font-family: 'Lobster', cursive;
 
 }
 
-/* Styling for the Welcome Message */
-#welcome-message {
-    font-size: 1.5rem; /* Makes the text larger */
-    color: #000000; /* Dark gray for readability */
-    text-align: left; /* Aligns the text to the left */
-    margin: 0; /* Removes default paragraph margins */
+
+/* Circle Image Container */
+.circle-images-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.circle-image {
+    text-align: center;
+    margin: 0 20px;
+}
+
+.circle-image img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%; /* Make image circular */
+    object-fit: cover; /* Ensure the image covers the area properly */
+    margin-bottom: 10px;
+}
+
+.circle-image p {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
 }
