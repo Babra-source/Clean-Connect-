@@ -119,7 +119,7 @@ h1 {
     display: flex;
     justify-content: space-around; /* Distribute cards evenly */
     gap: 20px;
-    margin-top: 500px;
+    margin-top: 600px;
     padding: 20px;
     flex-wrap: wrap; /* Allow cards to wrap on smaller screens */
 }
@@ -194,6 +194,13 @@ h1 {
 
 }
 
+h2 {
+    font-size: 2rem;
+    color: #070707; /* Or any color that fits your design */
+    margin-bottom: 20px;
+    text-align: center;
+}
+
 
 /* Circle Image Container */
 .circle-images-container {
@@ -208,15 +215,14 @@ h1 {
 }
 
 .circle-image img {
-    width: 200px;
-    height: 200px;
+    width: 300px;
+    height: 300px;
     border-radius: 50%; /* Make image circular */
     object-fit: cover; /* Ensure the image covers the area properly */
     margin-bottom: 10px;
 }
 
 .circle-image p {
-    font-size: 1rem;
     font-weight: bold;
-    color: #333;
+    color: #000000;
 }

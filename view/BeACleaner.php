@@ -13,14 +13,14 @@
     <div class="form-container">
         <h1><b>The Clean Connect Hub </b></h1>
 
-        <p><b>Sign up</b></p>
+        <p><b>Sign up As A cleaner</b></p>
         <form action="../actions/register_process.php" method = "post" onsubmit= "return validateForm()">
         <input type="text" id="firstName" name="firstname" placeholder="Enter First Name"><br>
         <input type="text" id="lastName" name="lastname" placeholder="Enter Last Name"><br>
         <input type="email" id="email" name="email" placeholder="Enter Email"><br>
         <select id="role" name="role" required style="display: none;">
-        <option value="cleaner">Cleaner</option>
-        <option value="customer"  selected>Customer</option>
+        <option value="cleaner" selected>Cleaner</option>
+        <option value="customer">Customer</option>
         </select>
         <input type="password" id="password" name="password" placeholder="New Password"><br>
         <input type="password" id="confirmPassword" name="confirm_password" placeholder="Confirm Password"><br>
