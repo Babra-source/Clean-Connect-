@@ -14,7 +14,7 @@
         <ul>
             <li><a href="view/" class="nav-link">Homepage</a></li>
             <li><a href="../view/BeACleaner.php" class="nav-link">Be A Cleaner</a></li>
-            <li><a href="view/login.php" class="nav-link">Sign In</a></li>
+            <li><a href="../view/login.php" class="nav-link">Sign In</a></li>
             <li><a href="../view/Register.php" class="nav-link">Sign Up</a></li>
             <li><a href="view/About.php" class="nav-link">About Page</a></li>
         </ul>
