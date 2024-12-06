@@ -12,7 +12,7 @@ body {
 header {
     font-family: 'Arial', sans-serif;
     width: 100%;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     padding: 10px 0; /* Reduced padding to prevent clipping */
@@ -61,7 +61,6 @@ nav ul li a:hover {
 
 /* Get Started Button Styling */
 #Get-started {
-    display: inline-block;
     background: linear-gradient(90deg, #007BFF, #0056D2); /* Gradient Blue Background */
     color: #fff; 
     font-size: 1.2rem; 
