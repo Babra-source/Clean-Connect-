@@ -6,155 +6,140 @@
     <title>Our Services</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #f4f4f9;
-        }
-        .service-card {
-            margin-top: 20px;
-        }
-        .testimonial-card {
-            background-color: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .feature-card {
-            background-color: #ffffff;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            margin-top: 20px;
-        }
-    </style>
+    
+    <link href="../assets/css/service.css" rel="stylesheet">
 </head>
 <body>
     <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">PlatformName</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="services.html">Services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="about.html">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contact.html">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="logout.html">Logout</a>
-                    </li>
-                </ul>
+    <header>
+        <div id="logo">
+            <img src="../assets/images/background.jpg" alt="Cleaner Connect Logo" />
+        </div>
+        <nav>
+            <ul>
+                <li><a href="view/" class="nav-link">Homepage</a></li>
+                <li><a href="../view/BeACleaner.php" class="nav-link">Be A Cleaner</a></li>
+                <li><a href="../view/login.php" class="nav-link">Sign In</a></li>
+                <li><a href="../view/Register.php" class="nav-link">Sign Up</a></li>
+                <li><a href="view/About.php" class="nav-link">About Page</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Search Section -->
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h2>Search for Services</h2>
+                <input type="text" class="form-control w-50 mx-auto" id="searchService" placeholder="Search for a service...">
             </div>
         </div>
-    </nav>
+    </div>
 
     <!-- Services Section -->
     <div class="container mt-5">
         <h1 class="text-center mb-4">Our Services</h1>
 
-        <div class="row">
+        <div class="row" id="servicesList">
             <!-- Service 1 -->
-            <div class="col-md-4">
-                <div class="card service-card">
-                    <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Service 1">
+            <div class="col-md-4 service-card" data-service="Service 1">
+                <div class="card">
+                    <img src="../assets/images/handshake.jpg" class="card-img-top" alt="Service 1">
                     <div class="card-body">
                         <h5 class="card-title">Service 1</h5>
-                        <p class="card-text">Description of Service 1.</p>
-                        <a href="#" class="btn btn-primary">Learn More</a>
+                        <p class="card-text">Description of Service 1. This service includes cleaning of residential properties with a focus on thoroughness and attention to detail.</p>
+                        <a href="#" class="btn btn-primary">Book for this service</a>
                     </div>
                 </div>
             </div>
 
             <!-- Service 2 -->
-            <div class="col-md-4">
-                <div class="card service-card">
-                    <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Service 2">
+            <div class="col-md-4 service-card" data-service="Service 2">
+                <div class="card">
+                    <img src="../assets/images/handshake.jpg" class="card-img-top" alt="Service 2">
                     <div class="card-body">
                         <h5 class="card-title">Service 2</h5>
-                        <p class="card-text">Description of Service 2.</p>
-                        <a href="#" class="btn btn-primary">Learn More</a>
+                        <p class="card-text">Description of Service 2. This service specializes in office cleaning, ensuring that your workspace is always pristine and productive.</p>
+                        <a href="..view/servicebooking.php" class="btn btn-primary">Book this service</a>
                     </div>
                 </div>
             </div>
 
             <!-- Service 3 -->
-            <div class="col-md-4">
-                <div class="card service-card">
-                    <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Service 3">
+            <div class="col-md-4 service-card" data-service="Service 3">
+                <div class="card">
+                    <img src="../assets/images/handshake.jpg" class="card-img-top" alt="Service 3">
                     <div class="card-body">
                         <h5 class="card-title">Service 3</h5>
-                        <p class="card-text">Description of Service 3.</p>
-                        <a href="#" class="btn btn-primary">Learn More</a>
+                        <p class="card-text">Description of Service 3. This service is designed for post-construction cleaning, making your newly renovated space look spotless.</p>
+                        <a href="#" class="btn btn-primary">Book  this service</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 service-card" data-service="Service 2">
+                <div class="card">
+                    <img src="../assets/images/handshake.jpg" class="card-img-top" alt="Service 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Service 2</h5>
+                        <p class="card-text">Description of Service 2. This service specializes in office cleaning, ensuring that your workspace is always pristine and productive.</p>
+                        <a href="#" class="btn btn-primary">Book this service</a>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- Features Section -->
-        <div class="row mt-5">
-            <div class="col-md-4">
-                <div class="feature-card">
-                    <h4>Feature 1</h4>
-                    <p>Feature 1 description, explaining why it's beneficial to the users.</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="feature-card">
-                    <h4>Feature 2</h4>
-                    <p>Feature 2 description, highlighting the impact it has on users.</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="feature-card">
-                    <h4>Feature 3</h4>
-                    <p>Feature 3 description, showing how it makes the platform stand out.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Testimonials Section -->
-        <h2 class="text-center mt-5">What Our Users Say</h2>
-        <div class="row mt-4">
-            <div class="col-md-4">
-                <div class="testimonial-card">
-                    <p>"This platform has helped me connect with incredible artists and showcase my work to a larger audience."</p>
-                    <h6>- User 1</h6>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="testimonial-card">
-                    <p>"I love how easy it is to find unique handcrafted items and support small businesses."</p>
-                    <h6>- User 2</h6>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="testimonial-card">
-                    <p>"The platform has made it easy for me to learn new techniques and improve my craft."</p>
-                    <h6>- User 3</h6>
-                </div>
-            </div>
-        </div>
-
-        <!-- Contact Section -->
-        <div class="row mt-5">
-            <div class="col-12 text-center">
-                <h3>Get In Touch</h3>
-                <p>If you have any questions or need further information, feel free to contact us.</p>
-                <a href="contact.html" class="btn btn-primary">Contact Us</a>
-            </div>
-        </div>
-
     </div>
+
+    <!-- Features Section -->
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Why Choose Us?</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <h4>Reliable Professionals</h4>
+                    <p>Our cleaners are thoroughly vetted and trained to deliver top-quality service with a focus on professionalism.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <h4>Affordable Pricing</h4>
+                    <p>We offer competitive pricing while maintaining high standards of service, making cleaning affordable for everyone.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <h4>Flexible Scheduling</h4>
+                    <p>Whether it's a one-time deep clean or regular service, we work around your schedule to meet your needs.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="text-center mt-5 py-4" style="background-color: #333; color: white;">
+        <p>&copy; 2024 Cleaner Connect | All Rights Reserved</p>
+        <p><a href="privacy-policy.html" style="color: white;">Privacy Policy</a> | <a href="terms-of-service.html" style="color: white;">Terms of Service</a></p>
+    </footer>
 
     <!-- Bootstrap JS and Popper.js -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+    <script>
+        // Search functionality for services
+        document.getElementById('searchService').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const serviceCards = document.querySelectorAll('.service-card');
+
+            serviceCards.forEach(function(card) {
+                const serviceTitle = card.querySelector('.card-title').textContent.toLowerCase();
+                if (serviceTitle.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
