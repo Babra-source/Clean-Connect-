@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cleaner Connect</title>
     <link rel="stylesheet" href="../assets/css/index.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* General Styles */
 
 
 /* Banner Section */
 #banner {
-    background: url('../assets/images/background.jpg') no-repeat center center/cover;
+    background: url('../assets/images/homepage1.jpg') no-repeat center center/cover;
     color: #fff;
     text-align: center;
     padding: 100px 20px;
@@ -24,35 +25,37 @@
     <!-- Header -->
     <header>
         <div id="logo">
-            <img src="../assets/images/background.jpg" alt="Cleaner Connect Logo" />
+            <img src="../assets/images/logo.png" alt="Cleaner Connect Logo" />
         </div>
         <nav>
             <ul>
-            <li><a href="view/" class="nav-link">Homepage</a></li>
-            <li><a href="../view/BeACleaner.php" class="nav-link">Be A Cleaner</a></li>
+            <li><a href="../view/index.php" class="nav-link">Homepage</a></li>
+            <li><a href="../view/Cleanerterms.php" class="nav-link">Be A Cleaner</a></li>
             <li><a href="../view/login.php" class="nav-link">Sign In</a></li>
             <li><a href="../view/Register.php" class="nav-link">Sign Up</a></li>
-            <li><a href="view/About.php" class="nav-link">About Page</a></li>
+            <li><a href="../view/AboutPage.php" class="nav-link">About Page</a></li>
             </ul>
         </nav>
     </header>
 
     <!-- Banner -->
     <section id="banner">
-        <h1>Welcome to Cleaner Connect</h1>
-        <p>Your trusted partner in finding top-quality cleaners for your home or office.</p>
+    <h1>Welcome to Clean Connect <i class="bi bi-mop-fill"></i></h1>
+    <p>Your trusted partner in finding top-quality cleaners for your home or office.</p>
     </section>
 
     <!-- Value Proposition -->
-    <section id="value-proposition">
-        <h2>Why Choose Cleaner Connect?</h2>
-        <p>We connect you with experienced, reliable, and professional cleaners to make your spaces sparkle.</p>
-        <ul>
-            <li>Verified Professionals</li>
-            <li>Flexible Scheduling</li>
-            <li>Affordable Rates</li>
-        </ul>
-    </section>
+<section id="value-proposition">
+    <h2>Why Choose Cleaner Connect?</h2>
+    <p>We connect you with experienced, reliable, and professional cleaners to make your spaces sparkle.</p>
+    <ul>
+        <li><i class="fas fa-user-tie"></i> Verified Professionals</li>
+        <li><i class="fas fa-calendar-alt"></i> Flexible Scheduling</li>
+        <li><i class="fas fa-coins"></i> Affordable Rates</li>
+    </ul>
+</section>
+
+    
 
     <!-- Services -->
     <section id="services">
@@ -83,9 +86,9 @@
     <h2>Our Top Three Missions</h2>
     <div class="missions-list">
         <ul>
-            <li><i class="fas fa-check-circle"></i> To provide reliable and professional cleaning services to homes, ensuring customer satisfaction.</li>
-            <li><i class="fas fa-check-circle"></i> To foster a cleaner, healthier living environment by using eco-friendly and sustainable cleaning products.</li>
-            <li><i class="fas fa-check-circle"></i> To create flexible and accessible booking options for customers, making it easier to schedule cleaning services at their convenience.</li>
+            <li><i class="fas fa-check-circle"></i>     To provide reliable and professional cleaning services to homes, ensuring customer satisfaction.</li>
+            <li><i class="fas fa-check-circle"></i>     To foster a cleaner, healthier living environment by using eco-friendly and sustainable cleaning products.</li>
+            <li><i class="fas fa-check-circle"></i>     To create flexible and accessible booking options for customers, making it easier to schedule cleaning services at their convenience.</li>
         </ul>
     </div>
 </section>
@@ -95,7 +98,7 @@
     <div class="row">
         <!-- About Image (Left Column) -->
         <div class="image-column">
-            <img src="../assets/images/mission1.jpeg" alt="About Us Image" class="about-image">
+            <img src="../assets/images/about.jpg" alt="About Us Image" class="about-image">
         </div>
         <!-- About Text (Right Column) -->
         <div class="text-column">

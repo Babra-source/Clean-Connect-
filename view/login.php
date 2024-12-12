@@ -27,7 +27,6 @@
 
             <button type=submit onsubmit= "return formvalidate() "><b>Login</b></button><br><br>
             <p>Don't have an account? <a href="../view/Register.php"><b>Sign up</b></a></p>
-            <p>Don't have an account? <a href="../view/BeACleaner.php"><b>Be A Cleaner</b></a></p>
         </form>
     </div>
 

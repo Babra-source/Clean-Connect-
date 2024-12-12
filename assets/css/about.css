@@ -1,0 +1,122 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+section {
+    padding: 50px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2, h3 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+h1 {
+    font-size: 36px;
+}
+
+h2 {
+    font-size: 24px;
+}
+
+h3 {
+    font-size: 18px;
+}
+
+p {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+#about {
+    background-color: #f7f7f7;
+    text-align: center;
+}
+
+#our-story {
+    background-color: #fff;
+}
+
+#our-story img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+#co-founders {
+    background-color: #f7f7f7;
+}
+
+.co-founder {
+    display: inline-block;
+    width: 30%;
+    margin: 20px;
+    text-align: center;
+}
+
+.co-founder img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+#our-mission {
+    background-color: #fff;
+}
+
+#our-team {
+    background-color: #f7f7f7;
+}
+
+.cleaner {
+    display: inline-block;
+    width: 30%;
+    margin: 20px;
+    text-align: center;
+}
+
+.cleaner img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+#our-work {
+    background-color: #fff;
+}
+
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.gallery img {
+    width: 30%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+@media only screen and (max-width: 768px) {
+    .co-founder, .cleaner {
+        width: 45%;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .co-founder, .cleaner {
+        width: 100%;
+    }
+}
