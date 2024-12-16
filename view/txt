@@ -212,3 +212,100 @@ if (isset($_SESSION['userid'])) {
 </main>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+
+<div class="col-md-4">
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Upcoming Bookings</h5>
+            <?php if (!empty($upcomingBookings)): ?>
+                <p class="card-text">
+                    You have <?php echo count($upcomingBookings); ?>  1upcoming bookings.
+                </p>
+            <?php else: ?>
+                <p class="card-text">1No upcoming bookings at the moment.</p>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>
+
+
+
+    <div class="col-md-5">
+        <div class="card mb-5">
+            <div class="card-body">
+                <h5 class="card-title">Service Stats</h5>
+                <ul class="list-unstyled">
+                    <li>Total Services Completed: 
+                        <?php echo isset($serviceStats['TotalServicesCompleted']) ? 
+                            htmlspecialchars($serviceStats['TotalServicesCompleted']) : '99'; ?>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Additional Table for Upcoming Booking Details -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Upcoming Booking Details</h5>
+                <?php if (!empty($upcomingBookings)): ?>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Service Type</th>
+                                <th>Booking Date</th>
+                                <th>Customer Name</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($upcomingBookings as $booking): ?>
+                                <tr>
+                                    <td><?php echo htmlspecialchars($booking['ServiceType']); ?></td>
+                                    <td><?php echo htmlspecialchars(date('M d, Y', strtotime($booking['BookingDate']))); ?></td>
+                                    <td><?php echo htmlspecialchars($booking['CustomerName']); ?></td>
+                                    <td><?php echo htmlspecialchars($booking['Status']); ?></td>
+                                    <td>
+                                        <!-- Confirm Button -->
+                                        <form action="booking_action.php" method="POST" class="d-inline-block">
+                                            <input type="hidden" name="booking_id" value="<?php echo $booking['BookingID']; ?>">
+                                            <button type="submit" name="action" value="confirm" class="btn btn-success btn-sm">Confirm</button>
+                                        </form>
+                                        <!-- Cancel Button -->
+                                        <form action="booking_action.php" method="POST" class="d-inline-block">
+                                            <input type="hidden" name="booking_id" value="<?php echo $booking['BookingID']; ?>">
+                                            <button type="submit" name="action" value="cancel" class="btn btn-danger btn-sm">Cancel</button>
+                                        </form>
+                                        <!-- Finish Button -->
+                                        <form action="booking_action.php" method="POST" class="d-inline-block">
+                                            <input type="hidden" name="booking_id" value="<?php echo $booking['BookingID']; ?>">
+                                            <button type="submit" name="action" value="finish" class="btn btn-primary btn-sm">Finish</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                <?php else: ?>
+                    <p class="card-text">No upcoming bookings at the moment.</p>
+            </div>
+        </div>
+    </div>
+</div>

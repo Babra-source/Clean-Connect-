@@ -24,12 +24,22 @@ if (isset($_SESSION['userid'])) {
     $pastCount = mysqli_fetch_assoc($resultPast)['past_count'];
 
     // Query to fetch the recent booking activities including cleaner information
-    $queryActivities = "SELECT b.BookingID, b.ClientID, b.CleanerID, b.ServiceID, b.BookingDate, b.BookingTime, 
-                          b.Status, b.CreatedAt, b.customerName, b.customerEmail, b.bookingMessage, 
-                          c.bio AS cleanerName
-                    FROM bookings b
-                    LEFT JOIN cleaners c ON b.CleanerID = c.cleaner_id;
-                    ";
+    $queryActivities = "SELECT 
+                    b.BookingDate, 
+                    b.Status,
+                    cu.fname AS cleaner_fname,
+                    cu.lname AS cleaner_lname,
+                    s.ServiceName AS service
+                FROM 
+                    bookings b
+                LEFT JOIN 
+                    cleanusers cu ON b.CleanerID = cu.UserID
+                JOIN 
+                    services s ON b.ServiceID = s.ServiceID
+                WHERE 
+                    b.ClientID = '$userId'
+                ORDER BY 
+                    b.BookingDate"; // Limit to 6 most recent bookings
     $resultActivities = mysqli_query($conn, $queryActivities);
     $recentActivities = mysqli_fetch_all($resultActivities, MYSQLI_ASSOC);
 } else {
@@ -98,10 +108,15 @@ if (isset($_SESSION['userid'])) {
                                 <i class="fas fa-calendar-day"></i>
                             </div>
                             <div class="activity-details">
-                                <h3>Cleaner: <?php echo htmlspecialchars($activity['cleanername']); ?> - Service: <?php echo htmlspecialchars($activity['service']); ?></h3>
-                                <p>Booking Date: <?php echo htmlspecialchars($activity['bookingdate']); ?></p>
-                                <p>Status: <?php echo htmlspecialchars($activity['status']); ?></p>
-                            </div>
+                            <h3>
+                    <?php 
+                    $cleanerName = $activity['cleaner_fname'] . ' ' . $activity['cleaner_lname'];
+                    echo 'Cleaner: ' . htmlspecialchars(trim($cleanerName)) . ' <br><br> Service: ' . htmlspecialchars($activity['service']); 
+                    ?>
+                        </h3>
+                        <p>Booking Date: <?php echo htmlspecialchars($activity['BookingDate']); ?></p>
+                        <p>Status: <?php echo htmlspecialchars($activity['Status']); ?></p>
+                                    </div>
                         </div>
                     </div>
                 <?php endforeach; ?>

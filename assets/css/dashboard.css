@@ -216,15 +216,9 @@
         border-radius: 15px; /* Rounded corners */
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Default shadow */
         font-size: 1.1rem; /* Increase readability */
-        background-color: #8dbcfa; /* Default background */
-        transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; /* Smooth transitions */
+        background-color: #ffffff; /* Default background */
     }
 
-    .card:hover {
-        transform: scale(1.05); /* Slight zoom effect */
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Stronger shadow */
-        background-color: #cee0f3; /* Light grey background on hover */
-    }
 
     .card-title {
         font-size: 1.5rem; /* Larger title */

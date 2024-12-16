@@ -10,7 +10,7 @@ error_reporting(E_ALL);
 // Validate session
 if (!isset($_SESSION['userid'])) {
     error_log('Dashboard access attempted without valid user session');
-    header('Location: ../login.php');
+    header('Location: ..view/login.php');
     exit();
 }
 
@@ -83,16 +83,34 @@ $bookingsQuery = "
     FROM bookings b
     JOIN cleanusers c 
     ON b.CleanerID = c.UserID
-    WHERE b.CleanerID = ? AND b.Status = 'Scheduled'
-    ORDER BY b.BookingDate ASC
-    LIMIT 3
+    WHERE b.CleanerID = ? 
+    ORDER BY b.BookingDate
 ";
+
+$query = "
+    SELECT COUNT(*) AS bookingCount, BookingID, Serviceid, BookingDate, CustomerName 
+    FROM bookings 
+    WHERE CleanerID = ? 
+    AND BookingDate >= CURDATE()
+";
+// Fetch upcoming bookings
+$bookingsStmt = $conn->prepare($query);
+$bookingsStmt->bind_param("i", $userid);
+$bookingsStmt->execute();
+$bookingsResult = $bookingsStmt->get_result();
+
+// Count the number of upcoming bookings
+$upcomingBookingCount = $bookingsResult->num_rows;
+
+// Fetch all rows as an associative array
+$upcomingBookings = $bookingsResult->fetch_all(MYSQLI_ASSOC);
+
 
 $bookingsStmt = $conn->prepare($bookingsQuery);
 $bookingsStmt->bind_param("i", $userid);
 $bookingsStmt->execute();
 $bookingsResult = $bookingsStmt->get_result();
-$upcomingBookings = $bookingsResult->fetch_all(MYSQLI_ASSOC);
+
 ?>
 
 
@@ -133,8 +151,6 @@ $upcomingBookings = $bookingsResult->fetch_all(MYSQLI_ASSOC);
             <h1>Welcome to Clean Connect, <?php echo $personName; ?>!</h1>
         </div>
 
-
-
     <div class="container mt-5">
         <?php if ($accountStatus === 'UnderReview'): ?>
             <div class="alert alert-warning text-center" role="alert">
@@ -154,98 +170,69 @@ $upcomingBookings = $bookingsResult->fetch_all(MYSQLI_ASSOC);
                     <small>Come back in 24 hours</small>
                 </p>
             </div>
-<?php elseif ($accountStatus === 'Approved'): ?>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h5 class="card-title">Upcoming Bookings</h5>
-                    <?php if (!empty($upcomingBookings)): ?>
-                        <ul class="list-unstyled">
-                            <?php foreach ($upcomingBookings as $booking): ?>
-                                <li class="mb-2">
-                                    <strong><?php echo htmlspecialchars($booking['ServiceType']); ?></strong><br>
-                                    Date: <?php echo htmlspecialchars(date('M d, Y', strtotime($booking['BookingDate']))); ?><br>
-                                    Customer: <?php echo htmlspecialchars($booking['CustomerName']); ?>
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>
-                    <?php else: ?>
-                        <p class="card-text">No upcoming bookings at the moment.</p>
-                    <?php endif; ?>
-                </div>
-            </div>
-        </div>
 
-        <div class="col-md-5">
-            <div class="card mb-5">
-                <div class="card-body">
-                    <h5 class="card-title">Service Stats</h5>
-                    <ul class="list-unstyled">
-                        <li>Total Services Completed: 
-                            <?php echo isset($serviceStats['TotalServicesCompleted']) ? 
-                                htmlspecialchars($serviceStats['TotalServicesCompleted']) : '0'; ?>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+    <?php elseif ($accountStatus === 'Approved'): ?>
+    <!-- Card to display the number of upcoming bookings -->
+    <div class="card mb-3">
+        <div class="card-header">
+            <h5 class="card-title">Upcoming Bookings</h5>
+        </div>
+        <div class="card-body">
+            <p class="card-text"><?php echo $upcomingBookingCount; ?></strong> upcoming booking.</p>
         </div>
     </div>
 
-    <!-- Additional Table for Upcoming Booking Details -->
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h5 class="card-title">Upcoming Booking Details</h5>
-                    <?php if (!empty($upcomingBookings)): ?>
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Service Type</th>
-                                    <th>Booking Date</th>
-                                    <th>Customer Name</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($upcomingBookings as $booking): ?>
-                                    <tr>
-                                        <td><?php echo htmlspecialchars($booking['ServiceType']); ?></td>
-                                        <td><?php echo htmlspecialchars(date('M d, Y', strtotime($booking['BookingDate']))); ?></td>
-                                        <td><?php echo htmlspecialchars($booking['CustomerName']); ?></td>
-                                        <td><?php echo htmlspecialchars($booking['Status']); ?></td>
-                                        <td>
-                                            <!-- Confirm Button -->
-                                            <form action="booking_action.php" method="POST" class="d-inline-block">
-                                                <input type="hidden" name="booking_id" value="<?php echo $booking['BookingID']; ?>">
-                                                <button type="submit" name="action" value="confirm" class="btn btn-success btn-sm">Confirm</button>
-                                            </form>
-                                            <!-- Cancel Button -->
-                                            <form action="booking_action.php" method="POST" class="d-inline-block">
-                                                <input type="hidden" name="booking_id" value="<?php echo $booking['BookingID']; ?>">
-                                                <button type="submit" name="action" value="cancel" class="btn btn-danger btn-sm">Cancel</button>
-                                            </form>
-                                            <!-- Finish Button -->
-                                            <form action="booking_action.php" method="POST" class="d-inline-block">
-                                                <input type="hidden" name="booking_id" value="<?php echo $booking['BookingID']; ?>">
-                                                <button type="submit" name="action" value="finish" class="btn btn-primary btn-sm">Finish</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                    <?php else: ?>
-                        <p class="card-text">No upcoming bookings at the moment.</p>
-                </div>
-            </div>
+    <!-- Table to display the details of upcoming bookings -->
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title">Booking Details</h5>
+            <?php
+        // Echo the entire upcoming bookings array to check its content
+        echo "<pre>";
+        print_r($bookingsResult );
+        echo "</pre>";
+    ?>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Booking ID</th>
+                        <th scope="col">Service ID</th>
+                        <th scope="col">Booking Date</th>
+                        <th scope="col">Customer Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php
+                    if ($upcomingBookingCount > 0) {
+                        foreach ($upcomingBookings as $booking) {
+
+                            $bookingID = isset($booking['BookingID']) ? htmlspecialchars($booking['BookingID']) : '';
+                            $serviceID = isset($booking['Serviceid']) ? htmlspecialchars($booking['Serviceid']) : ''; // Correct key name
+                            $bookingDate = isset($booking['BookingDate']) ? htmlspecialchars($booking['BookingDate']) : '';
+                            $customerName = isset($booking['CustomerName']) ? htmlspecialchars($booking['CustomerName']) : '';
+
+                            echo "<tr>";
+                            echo "<td>" . $bookingID . "</td>";
+                            echo "<td>" . $serviceID . "</td>";
+                            echo "<td>" . $bookingDate . "</td>";
+                            echo "<td>" . $customerName . "</td>";
+                            echo "</tr>";
+                        }
+                    } else {
+                        echo "<tr><td colspan='4' class='text-center'>No upcoming bookings</td></tr>";
+                    }
+                    ?>
+
+
+                </tbody>
+            </table>
         </div>
     </div>
-<?php endif; ?>
 
-            <?php elseif ($accountStatus === 'Rejected'): ?>
+
+         <?php elseif ($accountStatus === 'Rejected'): ?>
             <div class="alert alert-danger text-center" role="alert">
                 <h2>Application Rejected</h2>
                 <p>We're sorry to inform you that your cleaner application has been rejected.</p>
