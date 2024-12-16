@@ -1,3 +1,56 @@
+<?php
+include '../db/config.php'; 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+
+// Check if the service ID is passed in the URL
+if (isset($_GET['serviceid'])) {
+    $serviceid = $_GET['serviceid'];
+    
+
+    // Query to get the service details from the database by serviceid
+    $sql = "SELECT image_path, servicename FROM services WHERE serviceid = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $serviceid);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $service = $result->fetch_assoc();
+        
+        // Fetch the image path from the database
+        $imagePath = $service['image_path'];
+        $serviceName = $service['servicename'];
+    } else {
+        echo "Service not found!";
+        exit;
+    }
+
+
+
+//Fetch available cleaners for this service
+// Fetch available cleaners for a specific service
+$cleanersSql = "
+    SELECT c.cleaner_id, cu.fname, cu.lname, c.bio
+    FROM cleaners c
+    JOIN cleanusers cu ON c.userid = cu.userid
+    JOIN services cs ON c.service = cs.serviceid  
+    WHERE cs.serviceid = ?
+";
+
+
+    $cleanersStmt = $conn->prepare($cleanersSql);
+    $cleanersStmt->bind_param("i", $serviceid);
+    $cleanersStmt->execute();
+    $cleanersResult = $cleanersStmt->get_result();
+} else {
+    echo "Service ID not provided!";
+    exit;
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,16 +64,18 @@
 <body>
     <!-- Navigation Bar -->
     <header>
-        <div id="logo">
-            <img src="../assets/images/background.jpg" alt="Cleaner Connect Logo" />
+        <div class="logo">
+            <h1>Clean Connect</h1> 
         </div>
+        
         <nav>
             <ul>
-                <li><a href="view/" class="nav-link">Homepage</a></li>
-                <li><a href="../view/BeACleaner.php" class="nav-link">Be A Cleaner</a></li>
+                <li><a href="../view/index.php" class="nav-link">Homepage</a></li>
+                <li><a href="../view/logout.php" class="nav-link">Logout</a></li>
+                <li><a href="../view/Cleanerterms.php" class="nav-link">Be A Cleaner</a></li>
                 <li><a href="../view/login.php" class="nav-link">Sign In</a></li>
                 <li><a href="../view/Register.php" class="nav-link">Sign Up</a></li>
-                <li><a href="view/About.php" class="nav-link">About Page</a></li>
+                <li><a href="../view/AboutPage.php" class="nav-link">About Page</a></li>
             </ul>
         </nav>
     </header>
@@ -29,10 +84,13 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-12 text-center">
-                <img src="https://via.placeholder.com/1200x400" class="img-fluid mb-4" alt="Service Image">
-                <h2>Search for Services</h2>
+            <img src="../uploads/<?php echo htmlspecialchars($imagePath); ?>" 
+                    class="img-fluid mb-4" 
+                    alt="<?php echo htmlspecialchars($serviceName); ?>" 
+                    style="width: 50%; height: auto;">
+                <h2>Search for Cleaners</h2>
                 <div class="d-flex justify-content-center">
-                    <input type="text" class="form-control w-50" id="searchService" placeholder="Search for a service...">
+                    <input type="text" class="form-control w-50" id="searchCleaner" placeholder="Search for a cleaner...">
                 </div>
             </div>
         </div>
@@ -40,52 +98,45 @@
 
     <!-- Available Cleaners Section -->
     <div class="container mt-5">
-        <h1 class="text-center mb-4">Available Cleaners</h1>
+        <h1 class="text-center mb-4">Available Cleaners for <?php echo htmlspecialchars($serviceName); ?></h1>
 
         <div class="row" id="cleanersList">
-            <!-- Cleaner 1 -->
-            <div class="col-md-4 cleaner-card" data-cleaner="Cleaner 1">
+            <?php 
+            if ($cleanersResult->num_rows > 0) {
+                while ($cleaner = $cleanersResult->fetch_assoc()) {
+                    $cleanerFullName = htmlspecialchars($cleaner['fname'] . ' ' . $cleaner['lname']);
+                    $cleanerBio = htmlspecialchars($cleaner['bio']);
+                    $cleanerImage = !empty($cleaner['profile_image']) ? '../uploads/' . htmlspecialchars($cleaner['profile_image']) : 'https://via.placeholder.com/300x200';
+            ?>
+            <div class="col-md-4 cleaner-card" data-cleaner="<?php echo $cleanerFullName; ?>">
                 <div class="card">
-                    <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Cleaner 1">
+                    <img src="<?php echo $cleanerImage; ?>" class="card-img-top" alt="<?php echo $cleanerFullName; ?>">
                     <div class="card-body">
-                        <h5 class="card-title">Cleaner 1</h5>
-                        <p class="card-text">Expert in residential cleaning with years of experience.</p>
-                        <button class="btn btn-primary" onclick="showCleanerInfo('Cleaner 1')">Show Details</button>
-                        <button class="btn btn-success mt-2">Book</button> <!-- Book button -->
+                        <h5 class="card-title"><?php echo $cleanerFullName; ?></h5>
+                        <p class="card-text"><?php echo $cleanerBio; ?></p>
+                        <button class="btn btn-primary" onclick="showCleanerInfo('<?php echo $cleanerFullName; ?>', '<?php echo $cleanerBio; ?>')">Show Details</button>
+                        <button type="button" class="btn btn-success mt-2" 
+                            onclick="viewCleanerProfile('<?php echo $cleaner['cleaner_id']; ?>', '<?php echo $serviceid; ?>')">
+                            Book <?php echo $cleaner['cleaner_id']; ?>
+                        </button>
                     </div>
                 </div>
             </div>
-
-            <!-- Cleaner 2 -->
-            <div class="col-md-4 cleaner-card" data-cleaner="Cleaner 2">
-                <div class="card">
-                    <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Cleaner 2">
-                    <div class="card-body">
-                        <h5 class="card-title">Cleaner 2</h5>
-                        <p class="card-text">Specializes in office cleaning and sanitation.</p>
-                        <button class="btn btn-primary" onclick="showCleanerInfo('Cleaner 2')">Show Details</button>
-                        <button class="btn btn-success mt-2">Book</button> <!-- Book button -->
-                    </div>
-                </div>
+            <?php 
+                }
+            } else {
+            ?>
+            <div class="col-12 text-center">
+                <p>No cleaners available for this service at the moment.</p>
             </div>
-
-            <!-- Cleaner 3 -->
-            <div class="col-md-4 cleaner-card" data-cleaner="Cleaner 3">
-                <div class="card">
-                    <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Cleaner 3">
-                    <div class="card-body">
-                        <h5 class="card-title">Cleaner 3</h5>
-                        <p class="card-text">Experienced in post-construction cleaning, ensuring your space is spotless.</p>
-                        <button class="btn btn-primary" onclick="showCleanerInfo('Cleaner 3')">Show Details</button>
-                        <button class="btn btn-success mt-2">Book</button> <!-- Book button -->
-                    </div>
-                </div>
-            </div>
+            <?php 
+            }
+            ?>
         </div>
 
         <!-- Cleaner Info Modal -->
         <div class="modal fade" id="cleanerInfoModal" tabindex="-1" aria-labelledby="cleanerInfoModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered"> <!-- Centered modal -->
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="cleanerInfoModalLabel">Cleaner Info</h5>
@@ -97,46 +148,6 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- Cleaner Team Section -->
-    <div class="container mt-5">
-        <h2 class="text-center mb-4">Our Cleaning Team</h2>
-        <div class="row">
-            <div class="col-md-3">
-                <div class="team-member">
-                    <img src="https://via.placeholder.com/150" class="img-fluid mb-3" alt="Team Member">
-                    <h5>Team Member 1</h5>
-                    <p>Specialized in residential and commercial cleaning.</p>
-                    <button class="btn btn-success mt-2">Book</button> <!-- Book button for team member -->
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="team-member">
-                    <img src="https://via.placeholder.com/150" class="img-fluid mb-3" alt="Team Member">
-                    <h5>Team Member 2</h5>
-                    <p>Expert in eco-friendly cleaning techniques.</p>
-                    <button class="btn btn-success mt-2">Book</button> <!-- Book button for team member -->
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="team-member">
-                    <img src="https://via.placeholder.com/150" class="img-fluid mb-3" alt="Team Member">
-                    <h5>Team Member 3</h5>
-                    <p>Highly skilled in post-renovation cleaning.</p>
-                    <button class="btn btn-success mt-2">Book</button> <!-- Book button for team member -->
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="team-member">
-                    <img src="https://via.placeholder.com/150" class="img-fluid mb-3" alt="Team Member">
-                    <h5>Team Member 4</h5>
-                    <p>Experienced in all aspects of residential cleaning.</p>
-                    <button class="btn btn-success mt-2">Book</button> <!-- Book button for team member -->
                 </div>
             </div>
         </div>
@@ -154,7 +165,7 @@
 
     <script>
         // Search functionality for cleaners
-        document.getElementById('searchService').addEventListener('input', function() {
+        document.getElementById('searchCleaner').addEventListener('input', function() {
             const searchTerm = this.value.toLowerCase();
             const cleanerCards = document.querySelectorAll('.cleaner-card');
 
@@ -169,17 +180,26 @@
         });
 
         // Display Cleaner Info on Click
-        function showCleanerInfo(cleanerName) {
-            const cleanerInfo = {
-                'Cleaner 1': 'Cleaner 1 has over 5 years of experience in residential cleaning and specializes in deep cleaning and organization.',
-                'Cleaner 2': 'Cleaner 2 has 3 years of experience specializing in office spaces and ensures high sanitation standards.',
-                'Cleaner 3': 'Cleaner 3 is experienced in post-construction cleaning, making sure the space is ready for use after renovation.'
-            };
-
-            document.getElementById('cleanerInfoContent').innerText = cleanerInfo[cleanerName];
+        function showCleanerInfo(cleanerName, cleanerBio) {
+            document.getElementById('cleanerInfoContent').innerText = cleanerBio;
+            document.getElementById('cleanerInfoModalLabel').textContent = cleanerName;
             var modal = new bootstrap.Modal(document.getElementById('cleanerInfoModal'));
             modal.show();
         }
+
+        // Book Cleaner function (to be implemented)
+        function bookCleaner(cleanerId) {
+            // Redirect to booking page or open booking modal
+            window.location.href = `booking.php?cleanerid=${cleanerId}&serviceid=<?php echo $serviceid; ?>`;
+        }
+
+        function viewCleanerProfile(cleanerId, serviceId) {
+            // Redirect to the cleaner profile page with cleanerId and serviceId as query parameters
+            window.location.href = `bookingpage.php?cleanerid=${cleanerId}&serviceid=${serviceId}`;
+        }
+
     </script>
+
+    
 </body>
 </html>

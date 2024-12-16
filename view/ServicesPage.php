@@ -1,3 +1,23 @@
+<?php
+include '../db/config.php'; // Include the database connection file
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+session_start();
+
+// Redirect user to login page if not logged in
+if (!isset($_SESSION['userid'])) {
+    header('Location: ../view/login.php');
+    exit;
+}
+
+
+$sql = "SELECT servicename, description, price, createdat, serviceid, image_path FROM services";
+$result = $conn->query($sql);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,22 +26,20 @@
     <title>Our Services</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    
     <link href="../assets/css/service.css" rel="stylesheet">
 </head>
 <body>
     <!-- Navigation Bar -->
     <header>
-        <div id="logo">
-            <img src="../assets/images/background.jpg" alt="Cleaner Connect Logo" />
+        <div class="logo">
+            <h1>Clean Connect</h1> 
         </div>
+        
         <nav>
             <ul>
-                <li><a href="view/" class="nav-link">Homepage</a></li>
-                <li><a href="../view/BeACleaner.php" class="nav-link">Be A Cleaner</a></li>
-                <li><a href="../view/login.php" class="nav-link">Sign In</a></li>
-                <li><a href="../view/Register.php" class="nav-link">Sign Up</a></li>
-                <li><a href="view/About.php" class="nav-link">About Page</a></li>
+                <li><a href="../view/index.php" class="nav-link">Homepage</a></li>
+                <li><a href="../actions/logout.php" class="nav-link">Logout</a></li>
+                <li><a href="../view/AboutPage.php" class="nav-link">About Page</a></li>
             </ul>
         </nav>
     </header>
@@ -41,52 +59,26 @@
         <h1 class="text-center mb-4">Our Services</h1>
 
         <div class="row" id="servicesList">
-            <!-- Service 1 -->
-            <div class="col-md-4 service-card" data-service="Service 1">
-                <div class="card">
-                    <img src="../assets/images/handshake.jpg" class="card-img-top" alt="Service 1">
-                    <div class="card-body">
-                        <h5 class="card-title">Service 1</h5>
-                        <p class="card-text">Description of Service 1. This service includes cleaning of residential properties with a focus on thoroughness and attention to detail.</p>
-                        <a href="#" class="btn btn-primary">Book for this service</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Service 2 -->
-            <div class="col-md-4 service-card" data-service="Service 2">
-                <div class="card">
-                    <img src="../assets/images/handshake.jpg" class="card-img-top" alt="Service 2">
-                    <div class="card-body">
-                        <h5 class="card-title">Service 2</h5>
-                        <p class="card-text">Description of Service 2. This service specializes in office cleaning, ensuring that your workspace is always pristine and productive.</p>
-                        <a href="..view/servicebooking.php" class="btn btn-primary">Book this service</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Service 3 -->
-            <div class="col-md-4 service-card" data-service="Service 3">
-                <div class="card">
-                    <img src="../assets/images/handshake.jpg" class="card-img-top" alt="Service 3">
-                    <div class="card-body">
-                        <h5 class="card-title">Service 3</h5>
-                        <p class="card-text">Description of Service 3. This service is designed for post-construction cleaning, making your newly renovated space look spotless.</p>
-                        <a href="#" class="btn btn-primary">Book  this service</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4 service-card" data-service="Service 2">
-                <div class="card">
-                    <img src="../assets/images/handshake.jpg" class="card-img-top" alt="Service 2">
-                    <div class="card-body">
-                        <h5 class="card-title">Service 2</h5>
-                        <p class="card-text">Description of Service 2. This service specializes in office cleaning, ensuring that your workspace is always pristine and productive.</p>
-                        <a href="#" class="btn btn-primary">Book this service</a>
-                    </div>
-                </div>
-            </div>
+            <?php
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    echo '
+                    <div class="col-md-4 service-card" data-service="'.$row['servicename'].'">
+                        <div class="card">
+                            <img src="../uploads/'.$row['image_path'].'" class="card-img-top" alt="'.$row['servicename'].'">
+                            <div class="card-body">
+                                <h5 class="card-title">'.$row['servicename'].'</h5>
+                                <p class="card-text">'.$row['description'].'</p>
+                                <a href="../view/Servicebooking.php?serviceid='.$row['serviceid'].'" class="btn btn-primary">Book this service</a>
+                            </div>
+                        </div>
+                    </div>';
+                }
+            } else {
+                echo "<p>No services found.</p>";
+            }
+            $conn->close();
+            ?>
         </div>
     </div>
 

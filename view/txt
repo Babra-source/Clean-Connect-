@@ -1,4 +1,107 @@
-<?php
+Top Cleaners Section
+    <section class="admin-top-cleaners">
+      <h2>Top 3 Most Booked Cleaners</h2>
+      <div class="row">
+        <!-- Card 1 -->
+        <div class="col-md-4">
+          <div class="activity-card">
+            <div class="activity-icon">
+              <i class="fas fa-star"></i>
+            </div>
+            <div class="activity-details">
+              <h3>Cleaner: John Doe</h3>
+              <p>Bookings: 50</p>
+            </div>
+          </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="col-md-4">
+          <div class="activity-card">
+            <div class="activity-icon">
+              <i class="fas fa-star"></i>
+            </div>
+            <div class="activity-details">
+              <h3>Cleaner: Sarah Lee</h3>
+              <p>Bookings: 45</p>
+            </div>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="col-md-4">
+          <div class="activity-card">
+            <div class="activity-icon">
+              <i class="fas fa-star"></i>
+            </div>
+            <div class="activity-details">
+              <h3>Cleaner: Mark Smith</h3>
+              <p>Bookings: 40</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Top Team Section -->
+    <section class="admin-top-teams">
+      <h2>Top Most Booked Team</h2>
+      <div class="row">
+        <!-- Card for Team -->
+        <div class="col-md-12">
+          <div class="activity-card">
+            <div class="activity-icon">
+              <i class="fas fa-users-cog"></i>
+            </div>
+            <div class="activity-details">
+              <h3>Team: Cleaning Experts</h3>
+              <p>Bookings: 120</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+    <section class="dashboard-activities">
+      <h2>Recent Booking Activities</h2>
+      <div class="row">
+        <?php foreach ($recentActivities as $activity): ?>
+          <div class="col-md-4">
+            <div class="activity-card">
+              <div class="activity-icon">
+                <i class="fas fa-calendar-day"></i>
+              </div>
+              <div class="activity-details">
+                <h3>Booking for <?php echo htmlspecialchars($activity['customername']); ?></h3>
+                <p>Booking Date: <?php echo htmlspecialchars($activity['bookingdate']); ?></p>
+                <p>Status: <?php echo htmlspecialchars($activity['status']); ?></p>
+              </div>
+            </div>
+          </div>
+        <?php endforeach; ?>
+      </div>
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+    <?php
 session_start();
 
 if (isset($_SESSION['role'])) {
@@ -10,7 +113,6 @@ if (isset($_SESSION['userid'])) {
 
     include('../db/config.php');
 
-    // Query to count upcoming and past bookings
     $queryUpcoming = "SELECT COUNT(*) AS upcoming_count 
                       FROM bookings 
                       WHERE bookingdate >= CURDATE() AND status = 'Pending' AND clientid = '$userId'";
@@ -23,13 +125,12 @@ if (isset($_SESSION['userid'])) {
     $resultPast = mysqli_query($conn, $queryPast);
     $pastCount = mysqli_fetch_assoc($resultPast)['past_count'];
 
-    // Query to fetch the recent booking activities including cleaner information
-    $queryActivities = "SELECT b.BookingID, b.ClientID, b.CleanerID, b.ServiceID, b.BookingDate, b.BookingTime, 
-                          b.Status, b.CreatedAt, b.customerName, b.customerEmail, b.bookingMessage, 
-                          c.bio AS cleanerName
-                    FROM bookings b
-                    LEFT JOIN cleaners c ON b.CleanerID = c.cleaner_id;
-                    ";
+    // Include cleaner information in the query
+    $queryActivities = "SELECT customername, cleanername, bookingdate, status 
+                        FROM bookings 
+                        JOIN cleaners ON bookings.cleanerid = cleaners.cleanerid
+                        WHERE clientid = '$userId' 
+                        ORDER BY bookingdate DESC LIMIT 5";
     $resultActivities = mysqli_query($conn, $queryActivities);
     $recentActivities = mysqli_fetch_all($resultActivities, MYSQLI_ASSOC);
 } else {
@@ -43,7 +144,7 @@ if (isset($_SESSION['userid'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Client Dashboard</title>
+    <title>Cleaner's Dashboard</title>
     <link rel="stylesheet" href="../assets/css/dashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -98,7 +199,7 @@ if (isset($_SESSION['userid'])) {
                                 <i class="fas fa-calendar-day"></i>
                             </div>
                             <div class="activity-details">
-                                <h3>Cleaner: <?php echo htmlspecialchars($activity['cleanername']); ?> - Service: <?php echo htmlspecialchars($activity['service']); ?></h3>
+                                <h3>Booking for <?php echo htmlspecialchars($activity['customername']); ?> with Cleaner: <?php echo htmlspecialchars($activity['cleanername']); ?></h3>
                                 <p>Booking Date: <?php echo htmlspecialchars($activity['bookingdate']); ?></p>
                                 <p>Status: <?php echo htmlspecialchars($activity['status']); ?></p>
                             </div>

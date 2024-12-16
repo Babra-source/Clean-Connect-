@@ -13,23 +13,24 @@
   }
   
   header {
-    background-color:rgb(78, 137, 247);
-    padding: 10px 20px;
+    background-color:#a2cfff;
+    padding: 20px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     }
     
-    #logo img {
-    height: 50px;
+    .logo h1 {
+        margin: 0; /* Remove default margin */
+        font-size: 24px; /* Adjust font size as needed */
     }
-    
     nav ul {
         list-style: none;
-        margin: 0;
+        margin: 0 auto; /* This centers the ul itself if it has a defined width */
         padding: 0;
         display: flex;
         gap: 20px;
+        justify-content: center; /* This centers the flex items (li elements) */
     }
     
     nav ul li {
@@ -57,6 +58,7 @@
     nav ul li a:hover::after {
         width: 100%;
     }
+    
   
   /* Main Content Styling */
   .dashboard-main {
@@ -129,6 +131,31 @@
     font-size: 14px;
     color: #555;
   }
+
+  /* Banner container styling */
+.banner-container {
+  position: relative;
+  text-align: center;
+}
+
+/* Banner image styling */
+.banner-image {
+  width: 100%;
+  height: auto;
+  display: block; /* Ensure image takes up the full width */
+}
+
+/* Welcome message styling */
+.banner-container h1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white; /* Adjust text color for visibility */
+  font-size: 2.5rem; /* Adjust size as needed */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Optional: Add shadow for readability */
+}
+
   
   /* Mobile responsiveness */
   @media (max-width: 768px) {
@@ -180,3 +207,43 @@
     color: #555;
   }
   
+
+
+    .card {
+        width: 100%; /* Full width of container */
+        height: auto; /* Allow height to adjust */
+        padding: 20px; /* Spacing */
+        border-radius: 15px; /* Rounded corners */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Default shadow */
+        font-size: 1.1rem; /* Increase readability */
+        background-color: #8dbcfa; /* Default background */
+        transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; /* Smooth transitions */
+    }
+
+    .card:hover {
+        transform: scale(1.05); /* Slight zoom effect */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Stronger shadow */
+        background-color: #cee0f3; /* Light grey background on hover */
+    }
+
+    .card-title {
+        font-size: 1.5rem; /* Larger title */
+        font-weight: bold; /* Bold font */
+        margin-bottom: 15px; /* Spacing below */
+        transition: color 0.3s ease; /* Smooth color change */
+    }
+
+    .card-title:hover {
+        color: #007bff; /* Change title color to blue on hover */
+    }
+
+    .card-text, .list-unstyled li {
+        font-size: 1.2rem; /* Larger text */
+        line-height: 1.5; /* Improve line spacing */
+        color: #333; /* Default text color */
+        transition: color 0.3s ease; /* Smooth text color change */
+    }
+
+    .card-text:hover, .list-unstyled li:hover {
+        color: #555; /* Slightly darker text on hover */
+    }

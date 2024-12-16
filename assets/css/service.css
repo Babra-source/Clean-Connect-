@@ -8,23 +8,24 @@ body {
 }
 
 header {
-    background-color:white;
-    padding: 10px 20px;
+    background-color:#a2cfff;
+    padding: 20px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     }
     
-    #logo img {
-    height: 50px;
+    .logo h1 {
+        margin: 0; /* Remove default margin */
+        font-size: 24px; /* Adjust font size as needed */
     }
-    
     nav ul {
         list-style: none;
-        margin: 0;
+        margin: 0 auto; /* This centers the ul itself if it has a defined width */
         padding: 0;
         display: flex;
         gap: 20px;
+        justify-content: center; /* This centers the flex items (li elements) */
     }
     
     nav ul li {
@@ -52,6 +53,8 @@ header {
     nav ul li a:hover::after {
         width: 100%;
     }
+    
+    
 /* Search Section */
 #searchService {
     padding: 10px;
@@ -67,8 +70,18 @@ header {
 .container.mt-5 {
     max-width: 1200px;
     margin: 0 auto;
+    
 }
 
+
+/*  Image on services   */
+
+.card-img-top {
+
+        object-fit: cover; /* Optional: makes sure the image is cropped and fits within the box */
+    
+    
+}
 h1, h2 {
     color: #333;
     font-size: 36px;

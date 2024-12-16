@@ -1,3 +1,53 @@
+<?php
+// Database connection
+include '../db/config.php'; 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+session_start();
+
+// Check if session values exist
+$clientID = isset($_SESSION['userID']) ? $_SESSION['userID'] : null;
+$cleanerID = isset($_SESSION['cleaner_ID']) ? $_SESSION['cleaner_ID'] : null;
+$serviceId = isset($_SESSION['serviceid']) ? $_SESSION['serviceid'] : null;
+
+
+if ($clientID === null || $cleanerID === null) {
+    // echo "Error: clientID or cleanerID is missing.";
+    // exit;
+}
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+if (isset($_GET['cleanerid']) && isset($_GET['serviceid'])) {
+    $cleanerId = $_GET['cleanerid'];
+    $serviceId = $_GET['serviceid'];
+    $clientId =  $_SESSION['userid'];
+
+    $sqlName = "SELECT cu.fname, cu.lname, cu.email, cu.role, cu.created_at, cu.updated_at,cu.userid, 
+    c.experience, c.bio, c.phone_number
+    FROM cleanusers cu
+    JOIN cleaners c ON cu.UserID = c.userid
+    WHERE c.cleaner_id = $cleanerId"; // Assuming cleaner_id is used to filter
+    $resultName = $conn->query($sqlName);
+
+    
+    // Fetch cleaner details from the database
+    // $sql = "SELECT c.cleaner_id, c.userid, c.phone_number, 
+    //                 c.address, c.experience, c.bio, 
+    //                 c.status, s.serviceid
+    //         FROM cleaners c
+    //         JOIN services s ON c.service = s.serviceid
+    //         WHERE s.serviceid = $serviceId"; // Corrected query with dynamic serviceid
+    // $result = $conn->query($sql);
+
+    // Your code for processing the result goes here (e.g., displaying data)
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,9 +61,10 @@
 <body>
     <!-- Navigation Bar -->
     <header>
-        <div id="logo">
-            <img src="../assets/images/background.jpg" alt="Cleaner Connect Logo" />
+        <div class="logo">
+            <h1>Clean Connect </h1> 
         </div>
+        
         <nav>
             <ul>
                 <li><a href="view/" class="nav-link">Homepage</a></li>
@@ -29,47 +80,81 @@
     <div class="container mt-5">
         <h2 class="text-center mb-4">Cleaner Profile</h2>
         <div class="row">
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Cleaner Profile Image">
-                    <div class="card-body">
-                        <h5 class="card-title">Cleaner 1</h5>
-                        <p class="card-text"><strong>Experience:</strong> Over 5 years of experience in residential cleaning, specializing in deep cleaning and organization.</p>
-                        <p class="card-text"><strong>Skills:</strong> Deep cleaning, organization, sanitation.</p>
+        
+        <?php
+                // Check if the cleaner name exists
+                if ($resultName->num_rows > 0) {
+                    while ($rowName = $resultName->fetch_assoc()) {
+                        $cleanerName = htmlspecialchars($rowName["fname"]) . " " . htmlspecialchars($rowName["lname"]);
+                        $experience = htmlspecialchars($rowName["experience"]);
+                        $bio = htmlspecialchars($rowName["bio"]);
+                        $number = htmlspecialchars($rowName["phone_number"]);
+
+
+                    }
+                } else {
+                    $cleanerName = "Cleaner name not found.";
+                }
+
+                // Output the cleaner details including name, experience, bio, etc.
+                echo '
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Cleaner Profile Image">
+                        <div class="card-body">
+                            <p class="card-text"><strong>Name:</strong> ' . $cleanerName . '</p>
+                            <p class="card-text"><strong>Experience:</strong> ' . $experience . '</p>
+                            <p class="card-text"><strong>Bio:</strong> ' . $bio . '</p>
+                            <p class="card-text"><strong>Working Phone Number:</strong> ' . $number . '</p>
+                        </div>
                     </div>
                 </div>
-            </div>
+                ';
+    
+        // Close connection
+        $conn->close();
+        ?>
 
             <div class="col-md-8">
-                <h3 class="mb-4">Book Cleaner 1</h3>
-                <form id="bookingForm">
-                    <div class="mb-3">
-                        <label for="customerName" class="form-label">Your Name</label>
-                        <input type="text" class="form-control" id="customerName" required>
-                    </div>
+                <h3 class="mb-4">Book Cleaner</h3>
+                <form id="bookingForm" method="POST" action="../actions/booking.php">
+                <!-- Customer Name -->
+                <div class="mb-3">
+                    <label for="customerName" class="form-label">Your Name</label>
+                    <input type="text" class="form-control" id="customerName" name="customerName" required>
+                </div>
 
-                    <div class="mb-3">
-                        <label for="customerEmail" class="form-label">Your Email</label>
-                        <input type="email" class="form-control" id="customerEmail" required>
-                    </div>
+                <!-- Customer Email -->
+                <div class="mb-3">
+                    <label for="customerEmail" class="form-label">Your Email</label>
+                    <input type="email" class="form-control" id="customerEmail" name="customerEmail" required>
+                </div>
 
-                    <div class="mb-3">
-                        <label for="bookingDate" class="form-label">Booking Date</label>
-                        <input type="date" class="form-control" id="bookingDate" required>
-                    </div>
+                <!-- Booking Date -->
+                <div class="mb-3">
+                    <label for="bookingDate" class="form-label">Booking Date</label>
+                    <input type="date" class="form-control" id="bookingDate" name="bookingDate" required>
+                </div>
 
-                    <div class="mb-3">
-                        <label for="bookingTime" class="form-label">Preferred Time</label>
-                        <input type="time" class="form-control" id="bookingTime" required>
-                    </div>
+                <!-- Booking Time -->
+                <div class="mb-3">
+                    <label for="bookingTime" class="form-label">Preferred Time</label>
+                    <input type="time" class="form-control" id="bookingTime" name="bookingTime" required>
+                </div>
 
-                    <div class="mb-3">
-                        <label for="bookingMessage" class="form-label">Additional Instructions</label>
-                        <textarea class="form-control" id="bookingMessage" rows="3"></textarea>
-                    </div>
+                <!-- Additional Instructions -->
+                <div class="mb-3">
+                    <label for="bookingMessage" class="form-label">Additional Instructions</label>
+                    <textarea class="form-control" id="bookingMessage" name="bookingMessage" rows="3"></textarea>
+                </div>
+                    <input type="hidden" value = "<?php echo $serviceId; ?>" name="serviceid" required>
+                    <input type="hidden" value="<?php echo isset($_GET['cleanerid']) ? $_GET['cleanerid'] : $cleanerID; ?>" name="cleanerid" required>
 
-                    <button type="submit" class="btn btn-primary">Book Cleaner</button>
-                </form>
+                
+                <button type="submit" class="btn btn-primary">Book Cleaner</button>
+            </form>
+
+
             </div>
         </div>
     </div>
@@ -86,8 +171,8 @@
 
     <script>
         // Booking form submission handler
-        document.getElementById('bookingForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        document.getElementById('bookingForm').addEventListener('submit', function() {
+
 
             const name = document.getElementById('customerName').value;
             const email = document.getElementById('customerEmail').value;

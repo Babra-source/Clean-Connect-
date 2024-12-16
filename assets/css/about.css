@@ -1,122 +1,103 @@
-body {
-    font-family: Arial, sans-serif;
+
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f4f4f4;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+.container button{
+    margin-left: auto;
+    background-color: #3498db;
 }
 
 section {
-    padding: 50px;
-    margin-bottom: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    margin-bottom: 2rem;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-h1, h2, h3 {
-    color: #333;
-    margin-bottom: 10px;
+h1, h2 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    text-align: center;
 }
 
 h1 {
-    font-size: 36px;
+    font-size: 2.5rem;
+    color: #3498db;
 }
 
 h2 {
-    font-size: 24px;
-}
-
-h3 {
-    font-size: 18px;
+    font-size: 2rem;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 0.5rem;
 }
 
 p {
-    color: #666;
-    margin-bottom: 20px;
+    margin-bottom: 1rem;
 }
 
-#about {
-    background-color: #f7f7f7;
+.co-founders, .our-team {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.co-founder, .cleaner {
+    flex-basis: calc(50% - 1rem);
     text-align: center;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background-color: #f9f9f9;
+    border-radius: 8px;
 }
 
-#our-story {
-    background-color: #fff;
-}
-
-#our-story img {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 20px;
-}
-
-#co-founders {
-    background-color: #f7f7f7;
-}
-
-.co-founder {
-    display: inline-block;
-    width: 30%;
-    margin: 20px;
-    text-align: center;
-}
-
-.co-founder img {
-    width: 100%;
+.co-founder img, .cleaner img {
+    width: 200px;
     height: 200px;
     object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 10px;
-}
-
-#our-mission {
-    background-color: #fff;
-}
-
-#our-team {
-    background-color: #f7f7f7;
-}
-
-.cleaner {
-    display: inline-block;
-    width: 30%;
-    margin: 20px;
-    text-align: center;
-}
-
-.cleaner img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 10px;
-}
-
-#our-work {
-    background-color: #fff;
+    border-radius: 50%;
+    margin-bottom: 1rem;
 }
 
 .gallery {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-between;
 }
 
 .gallery img {
-    width: 30%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin: 10px;
+    flex-basis: calc(33.333% - 1rem);
+    max-width: 100%;
+    border-radius: 8px;
 }
 
-@media only screen and (max-width: 768px) {
+@media (max-width: 768px) {
     .co-founder, .cleaner {
-        width: 45%;
+        flex-basis: 100%;
     }
-}
 
-@media only screen and (max-width: 480px) {
-    .co-founder, .cleaner {
-        width: 100%;
+    .gallery {
+        flex-direction: column;
+    }
+
+    .gallery img {
+        flex-basis: 100%;
+        margin-bottom: 1rem;
     }
 }

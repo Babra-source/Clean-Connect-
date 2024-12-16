@@ -24,9 +24,11 @@
 <body>
     <!-- Header -->
     <header>
-        <div id="logo">
-            <img src="../assets/images/logo.png" alt="Cleaner Connect Logo" />
+
+        <div class="logo">
+            <h1>Clean Connect</h1> 
         </div>
+        
         <nav>
             <ul>
             <li><a href="../view/index.php" class="nav-link">Homepage</a></li>

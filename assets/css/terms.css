@@ -1,174 +1,145 @@
-/* General Page Layout */
-body {
-    font-family: 'Arial', sans-serif;
+/* Reset and Base Styles */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
-/* Sidebar styles */
-.sidebar {
-    background-color: #f8f9fa;
-    padding: 20px;
-    border-right: 1px solid #ddd;
-    height: 100vh; /* Sidebar takes the full height of the screen */
-    position: fixed;
-    width: 250px;
-    top: 0;
-    left: 0;
-    bottom: 0;
-}
-
-.sidebar h4 {
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.sidebar a {
-    display: block;
-    margin: 15px 0;
-    text-decoration: none;
-    color: #007bff;
-    font-size: 18px;
-    font-weight: 500;
-}
-
-.sidebar a:hover {
-    color: #0056b3;
-}
-
-/* Main Content */
-.content {
-    margin-left: 270px; /* Adjust for sidebar width */
-    padding: 20px;
-}
-
-/* Want to be a Cleaner Section */
-#Intro {
-    background-color: #f8f9fa;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Adds shadow for depth */
-}
-
-#Intro h1 {
-    font-size: 32px;
-    font-weight: bold;
-}
-
-#Intro p {
-    font-size: 18px;
+body {
+    font-family: Arial, sans-serif;
     line-height: 1.6;
+    color: #333;
+    background-color: #f4f4f4;
 }
 
-/* Demands List Styling */
+/* Header Styles */
+header {
+    background-color: #7bbcfc;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+}
+
+header .logo h1 {
+    font-size: 1.5rem;
+}
+
+header nav ul {
+    display: flex;
+    list-style: none;
+}
+
+header nav ul li {
+    margin-left: 20px;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+header nav ul li a:hover {
+    color: #3498db;
+}
+
+/* Banner Section */
+#banner {
+    background-color: #c0dbec;
+    color: white;
+    padding: 3rem 5%;
+}
+
+.banner-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.banner-text h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.banner-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+/* Content Sections */
+.content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 5%;
+    background-color: white;
+}
+
+section {
+    margin-bottom: 2rem;
+}
+
+section h1 {
+    color: #2c3e50;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Demands List */
 .demands-list {
     list-style: none;
-    padding-left: 0;
-    margin-top: 20px;
 }
 
 .demands-list li {
-    padding: 10px 0;
-    font-size: 18px;
-    line-height: 1.6;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
 }
 
 .check-icon {
-    color: blue;
+    color: #2ecc71;
     margin-right: 10px;
-    font-size: 18px;
+    font-size: 1.2rem;
 }
 
-/* Contract Form Styling */
-#contractForm {
-    background-color: #f8f9fa;
-    padding: 20px;
-    border-radius: 8px;
-    margin-top: 20px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Adds shadow for depth */
+/* Form Styles */
+.form-control {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
 }
 
-#contractForm .form-label {
-    font-weight: bold;
-    font-size: 18px;
-}
-
-#contractForm input, #contractForm select, #contractForm textarea {
-    font-size: 18px;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-#contractForm button {
-    margin-top: 15px;
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #007bff;
-    border-color: #007bff;
+.btn-primary {
+    background-color: #3498db;
     color: white;
-    border-radius: 5px;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-#contractForm button:hover {
-    background-color: #0056b3;
-    border-color: #0056b3;
+.btn-primary:hover {
+    background-color: #2980b9;
 }
 
-/* Way Forward Section */
-#Wayforward {
-    background-color: #f8f9fa;
-    padding: 20px;
-    border-radius: 8px;
-    margin-top: 20px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Adds shadow for depth */
-}
-
-#Wayforward h2 {
-    font-size: 28px;
-}
-
-#Wayforward p {
-    font-size: 18px;
-    line-height: 1.6;
-    text-align: center;
-}
-
-/* Image Styling */
-#Intro img {
-    width: 80%; /* Reduce the image width to 80% of the container */
-    max-width: 100%; /* Optional: limit the maximum width of the image */
-    height: auto; /* Maintain the aspect ratio */
-    border-radius: 10px; /* Optional: adds rounded corners */
-    object-fit: cover; /* Ensures the image covers the entire area without stretching */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Optional: adds a subtle shadow */
-    transition: transform 0.3s ease-in-out; /* Smooth transition for zoom effect */
-    margin: 0 auto; /* Center the image horizontally */
-    display: block; /* Ensure the image is a block-level element for centering */
-}
-
-/* Image hover effect (zoom) */
-#Intro img:hover {
-    transform: scale(1.05); /* Slight zoom on hover */
-}
-
-/* Footer Styling */
+/* Footer */
 footer {
-    background-color: #000000;
+    background-color: #2c3e50;
     color: white;
     text-align: center;
-    padding: 15px 0;
-    margin-top: 40px;
-    border-radius: 8px;
+    padding: 1rem;
 }
 
 footer a {
-    color: white;
+    color: #3498db;
     text-decoration: none;
-    font-size: 16px;
-    font-weight: bold;
+    margin: 0 10px;
 }
 
 footer a:hover {
@@ -176,15 +147,27 @@ footer a:hover {
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
-    .sidebar {
-        width: 100%;
-        height: auto;
-        border-right: none;
-        position: relative;
+@media screen and (max-width: 768px) {
+    header {
+        flex-direction: column;
+        text-align: center;
     }
-    .content {
-        margin-left: 0;
-        width: 100%;
+
+    header nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    header nav ul li {
+        margin: 10px 0;
+    }
+
+    .banner-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .banner-image {
+        margin-top: 1rem;
     }
 }
