@@ -37,7 +37,7 @@ $result = $conn->query($sql);
         
         <nav>
             <ul>
-                <li><a href="../view/index.php" class="nav-link">Homepage</a></li>
+            <li><a href="javascript:history.back()" class="nav-link">Go Back</a></li>
                 <li><a href="../actions/logout.php" class="nav-link">Logout</a></li>
                 <li><a href="../view/AboutPage.php" class="nav-link">About Page</a></li>
             </ul>

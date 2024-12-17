@@ -79,20 +79,25 @@ try {
 
 // Query to fetch upcoming bookings
 $bookingsQuery = "
-    SELECT b.BookingID, b.BookingDate, b.ServiceID, b.customerName as CustomerName
+    SELECT COUNT(*) AS bookingCount, b.BookingID, b.ServiceId, b.BookingDate, b.customerName, s.serviceName,b.bookingMessage,b.customerEmail
     FROM bookings b
-    JOIN cleanusers c 
-    ON b.CleanerID = c.UserID
-    WHERE b.CleanerID = ? 
-    ORDER BY b.BookingDate
+    JOIN services s ON b.ServiceId = s.ServiceId
+    WHERE b.CleanerID = ?
+    GROUP BY b.BookingID, b.ServiceId, s.serviceName
 ";
 
+
+
 $query = "
-    SELECT COUNT(*) AS bookingCount, BookingID, Serviceid, BookingDate, CustomerName 
+    SELECT COUNT(*) AS bookingCount, BookingID, ServiceId, BookingDate, customerName 
     FROM bookings 
     WHERE CleanerID = ? 
-    AND BookingDate >= CURDATE()
+    GROUP BY BookingID, Serviceid
 ";
+
+
+
+
 // Fetch upcoming bookings
 $bookingsStmt = $conn->prepare($query);
 $bookingsStmt->bind_param("i", $userid);
@@ -110,6 +115,10 @@ $bookingsStmt = $conn->prepare($bookingsQuery);
 $bookingsStmt->bind_param("i", $userid);
 $bookingsStmt->execute();
 $bookingsResult = $bookingsStmt->get_result();
+
+// Fetch all rows as an associative array
+$bookingsData = $bookingsResult->fetch_all(MYSQLI_ASSOC);
+
 
 ?>
 
@@ -138,8 +147,7 @@ $bookingsResult = $bookingsStmt->get_result();
         </div>
         <nav>
             <ul>
-                <li><a href="../view/index.php" class="nav-link">Homepage</a></li>
-                <li><a href="../view/servicespage.php" class="nav-link">Cleaning Services Page</a></li>
+                <li><a href="../view/ServicesPage.php" class="nav-link">Cleaning Services Page</a></li>
                 <li><a href="../view/AboutPage.php" class="nav-link">About Page</a></li>
                 <li><a href="../actions/logout.php" class="nav-link">Logout</a></li>
             </ul>
@@ -187,37 +195,39 @@ $bookingsResult = $bookingsStmt->get_result();
         <div class="card-header">
             <h5 class="card-title">Booking Details</h5>
             <?php
-        // Echo the entire upcoming bookings array to check its content
-        echo "<pre>";
-        print_r($bookingsResult );
-        echo "</pre>";
+
     ?>
         </div>
         <div class="card-body">
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th scope="col">Booking ID</th>
-                        <th scope="col">Service ID</th>
+                        <th scope="col">Service Name</th>
                         <th scope="col">Booking Date</th>
                         <th scope="col">Customer Name</th>
+                        <th scope = "col"> Customer Email
+                        <th scope="col">Booking Message</th>
                     </tr>
                 </thead>
                 <tbody>
                 <?php
+                    // Now loop through the data
                     if ($upcomingBookingCount > 0) {
-                        foreach ($upcomingBookings as $booking) {
-
-                            $bookingID = isset($booking['BookingID']) ? htmlspecialchars($booking['BookingID']) : '';
-                            $serviceID = isset($booking['Serviceid']) ? htmlspecialchars($booking['Serviceid']) : ''; // Correct key name
+                        foreach ($bookingsData as $booking) {
+                            
+                            $serviceID = isset($booking['serviceName']) ? htmlspecialchars($booking['serviceName']) : ''; // Correct key name
                             $bookingDate = isset($booking['BookingDate']) ? htmlspecialchars($booking['BookingDate']) : '';
-                            $customerName = isset($booking['CustomerName']) ? htmlspecialchars($booking['CustomerName']) : '';
+                            $customerName = isset($booking['customerName']) ? htmlspecialchars($booking['customerName']) : '';
+                            $customerEmail= isset($booking['customerEmail']) ? htmlspecialchars($booking['customerEmail']) : '';
+                            $bookingMessage = isset($booking['bookingMessage']) ? htmlspecialchars($booking['bookingMessage']) : '';
 
                             echo "<tr>";
-                            echo "<td>" . $bookingID . "</td>";
+                            
                             echo "<td>" . $serviceID . "</td>";
                             echo "<td>" . $bookingDate . "</td>";
                             echo "<td>" . $customerName . "</td>";
+                            echo "<td>" . $customerEmail . "</td>";
+                            echo "<td>" . $bookingMessage . "</td>";
                             echo "</tr>";
                         }
                     } else {

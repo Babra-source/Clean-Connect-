@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_user'])) {
     // Hash password securely
     $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-    $stmt = $conn->prepare("INSERT INTO cleanusers (fname, lname, email, password, role) VALUES (?, ?, ?, ?, 2)");
+    $stmt = $conn->prepare("INSERT INTO cleanusers (fname, lname, email, password, role,created_at) VALUES (?, ?, ?, ?, 2,NOW())");
     $stmt->bind_param("ssss", $fname, $lname, $email, $hashedPassword);
     $stmt->execute();
     header("Location: ../view/usermanagement.php");
@@ -132,8 +132,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_user'])) {
 
         <style>
             
-        th {
-            max-width: 500%;  /* Set a max width for column headers */
+
+        .table {
+            width: 100%;
+            margin: 0 auto;
+            font-size: 16px;  /* Larger font size */
+        }
+        .table th, .table td {
+            padding: 15px;  /* Larger padding */
+            text-align: center;  /* Center the content */
         }
 
 
@@ -149,7 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_user'])) {
                                 <img src="../assets/images/home.png" alt="home" class="me-2" width="24" height=""> Home
                             </a>
                             <hr>
-                            <a class="nav-link text-dark d-flex align-items-center mb-3" href="../view/servicesPage.php">
+                            <a class="nav-link text-dark d-flex align-items-center mb-3" href="../view/ServicesPage.php">
                                 <img src="../assets/images/service.png" alt="Showcase" class="me-2" width="24" height="24"> Service Page
                             </a>
                           
@@ -174,7 +181,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_user'])) {
                         <header class="bg-primary text-white p-3">
                         <h1 id="Users List">User Management</h1>
                         </header>
-                        <div class="container my-4">
+                        <div class="container my-4 ">
                         <h2 class="text-center">Manage Users</h2>
 
         <!-- Form to Add New User -->

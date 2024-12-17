@@ -88,9 +88,9 @@
     <h2>Our Top Three Missions</h2>
     <div class="missions-list">
         <ul>
-            <li><i class="fas fa-check-circle"></i>     To provide reliable and professional cleaning services to homes, ensuring customer satisfaction.</li>
-            <li><i class="fas fa-check-circle"></i>     To foster a cleaner, healthier living environment by using eco-friendly and sustainable cleaning products.</li>
-            <li><i class="fas fa-check-circle"></i>     To create flexible and accessible booking options for customers, making it easier to schedule cleaning services at their convenience.</li>
+            <li></i>     To provide reliable and professional cleaning services to homes, ensuring customer satisfaction.</li>
+            <li></i>     To foster a cleaner, healthier living environment by using eco-friendly and sustainable cleaning products.</li>
+            <li></i>     To create flexible and accessible booking options for customers, making it easier to schedule cleaning services at their convenience.</li>
         </ul>
     </div>
 </section>
@@ -100,7 +100,7 @@
     <div class="row">
         <!-- About Image (Left Column) -->
         <div class="image-column">
-            <img src="../assets/images/about.jpg" alt="About Us Image" class="about-image">
+            <img src="../assets/images/misson4.jpeg" alt="About Us Image" class="about-image">
         </div>
         <!-- About Text (Right Column) -->
         <div class="text-column">
@@ -148,13 +148,24 @@
 
     <!-- Email Signup/Newsletter -->
     <section id="signup">
-        <h2>Stay Updated</h2>
-        <p>Subscribe to our newsletter for cleaning tips, exclusive offers, and updates.</p>
-        <form>
-            <input type="email" placeholder="Enter your email" required />
-            <button type="submit">Subscribe</button>
-        </form>
-    </section>
+    <h2>Connect with Us</h2>
+    <p>Follow us on social media to stay updated with our latest news and offers.</p>
+    <div class="social-media">
+        <a href="https://facebook.com" target="_blank" aria-label="Facebook">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://twitter.com" target="_blank" aria-label="Twitter">
+            <i class="fab fa-twitter"></i>
+        </a>
+        <a href="https://instagram.com" target="_blank" aria-label="Instagram">
+            <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+        </a>
+    </div>
+</section>
+
 
     <!-- Footer -->
     <footer>

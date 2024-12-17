@@ -19,10 +19,6 @@ body {
     padding: 2rem 0;
 }
 
-.container button{
-    margin-left: auto;
-    background-color: #3498db;
-}
 
 section {
     background-color: white;
@@ -48,6 +44,37 @@ h2 {
     border-bottom: 2px solid #3498db;
     padding-bottom: 0.5rem;
 }
+
+header {
+    background-color: #a2cfff;
+    padding: 20px 20px;
+    display: flex;
+    justify-content: space-between; /* Space between logo and button */
+    align-items: center;
+}
+
+.logo h1 {
+    margin: 0; /* Remove default margin */
+    font-size: 24px; /* Adjust font size as needed */
+}
+
+header button {
+    margin-left: auto; /* Push the button to the far right */
+    padding: 10px 20px;
+    width:200px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    background-color: #0359a8;
+    color: white;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+header button:hover {
+    background-color: #1eff00; /* Slight darkening on hover */
+}
+
 
 p {
     margin-bottom: 1rem;

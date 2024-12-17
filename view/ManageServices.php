@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_service'])) {
 
     // Handle the uploaded file
     $service_image = $_FILES['service_image']['name']; // Get the file name
-    $target_dir = "../uploads/"; // Directory to store uploaded files
+    $target_dir = "../../uploads/"; // Directory to store uploaded files
     $target_file = $target_dir . basename($service_image); // Full path for the file
 
     // Validate the image file (optional: check file type, size, etc.)
@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_service'])) {
     // Check if a new image has been uploaded
     $target_file = null;
     if (!empty($_FILES['service_image']['name'])) {
-        $target_dir = "../uploads/";
+        $target_dir = "../../uploads/";
         $service_image = $_FILES['service_image']['name'];
         $target_file = $target_dir . basename($service_image);
         
@@ -158,9 +158,10 @@ $servicesResult = $conn->query($fetchServicesQuery);
     </div>
     <nav>
         <ul>
-            <li><a href="view/" class="nav-link">Homepage</a></li>
+            <li><a href="../view/homepage.php" class="nav-link">Homepage</a></li>
+            <li><a href="../view/AdminDashboard.php" class="nav-link">Dashboard</a></li>
             <li><a href="../view/usermanagement.php" class="nav-link">UserManagement</a></li>
-            <li><a href="view/About.php" class="nav-link">About Page</a></li>
+            <li><a href="../view/AboutPage.php" class="nav-link">About Page</a></li>
             <li><a href="../view/ServicesPage.php" class="nav-link">Services Page</a></li>
             <li><a href="../view/ProfilePage.php" class="nav-link">
                 <i class="fas fa-user"></i> 
@@ -309,5 +310,6 @@ $servicesResult = $conn->query($fetchServicesQuery);
 </div>
 <script src="../assets/js/deleteservice.js"></script>
 <script src="../assets/js/editservice.js"></script>
+<script src="../assets/js/HandleEditservice.js"></script>
 </body>
 </html>

@@ -62,31 +62,31 @@ if (isset($_GET['cleanerid']) && isset($_GET['serviceid'])) {
     <!-- Navigation Bar -->
     <header>
         <div class="logo">
-            <h1>Clean Connect </h1> 
+            <h1>Clean Connect</h1> 
         </div>
         
         <nav>
             <ul>
-                <li><a href="view/" class="nav-link">Homepage</a></li>
-                <li><a href="../view/BeACleaner.php" class="nav-link">Be A Cleaner</a></li>
-                <li><a href="../view/login.php" class="nav-link">Sign In</a></li>
-                <li><a href="../view/Register.php" class="nav-link">Sign Up</a></li>
-                <li><a href="view/About.php" class="nav-link">About Page</a></li>
+                <li><a href="javascript:history.back()" class="nav-link">Go Back</a></li>
+                <li><a href="../actions/logout.php" class="nav-link">Logout</a></li>
+                <li><a href="../view/AboutPage.php" class="nav-link">About Page</a></li>
             </ul>
         </nav>
     </header>
 
+
     <!-- Cleaner Profile Section -->
     <div class="container mt-5">
-        <h2 class="text-center mb-4">Cleaner Profile</h2>
+
         <div class="row">
+        
         
         <?php
                 // Check if the cleaner name exists
                 if ($resultName->num_rows > 0) {
                     while ($rowName = $resultName->fetch_assoc()) {
                         $cleanerName = htmlspecialchars($rowName["fname"]) . " " . htmlspecialchars($rowName["lname"]);
-                        $experience = htmlspecialchars($rowName["experience"]);
+                        $experience = htmlspecialchars($rowName["experience"]. " years");
                         $bio = htmlspecialchars($rowName["bio"]);
                         $number = htmlspecialchars($rowName["phone_number"]);
 
@@ -100,7 +100,7 @@ if (isset($_GET['cleanerid']) && isset($_GET['serviceid'])) {
                 echo '
                 <div class="col-md-4">
                     <div class="card">
-                        <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Cleaner Profile Image">
+                        <img src="../assets/images/cleaner.jpg" class="card-img-top" alt="Cleaner Profile Image">
                         <div class="card-body">
                             <p class="card-text"><strong>Name:</strong> ' . $cleanerName . '</p>
                             <p class="card-text"><strong>Experience:</strong> ' . $experience . '</p>

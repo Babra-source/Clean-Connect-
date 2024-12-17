@@ -7,6 +7,8 @@ $userName = isset($_SESSION['fname']) ? $_SESSION['fname'] : 'Guest';
 $role = $_SESSION['role'];
 $user_id = $_SESSION['userid'];
 
+
+
 // Query for total number of customers based on unique user_id
 $totalUsersQuery = "SELECT COUNT(userid) FROM cleanusers";
 $totalUsersResult = $conn->query($totalUsersQuery);
@@ -47,7 +49,7 @@ $pendingCleanersCount = $pendingCleanersResult->num_rows; // Number of pending c
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Admin Dashboard</title>
-        <link rel="stylesheet" href="../assets/css/Admindashboard.css">
+        <link rel="stylesheet" href="../assets/css/AdminDashboard.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -65,7 +67,7 @@ $pendingCleanersCount = $pendingCleanersResult->num_rows; // Number of pending c
                   <ul>
                   <li><a href="../view/index.php" class="nav-link">Homepage</a></li>
                   <li><a href="../view/usermanagement.php" class="nav-link">UserManagement</a></li>
-                  <li><a href="../view/servicespage.php" class="nav-link">Cleaning Services Page</a></li>
+                  <li><a href="../view/ServicesPage.php" class="nav-link">Cleaning Services Page</a></li>
                   <li><a href="../view/ManageServices.php" class="nav-link">Service Management</a></li>
                   <li><a href="../actions/logout.php" class="nav-link">Logout</a></li>
                   <li><a href="../view/AboutPage.php" class="nav-link">About Page</a></li>
@@ -73,10 +75,13 @@ $pendingCleanersCount = $pendingCleanersResult->num_rows; // Number of pending c
               </nav>
       </header>
 
-<!-- Banner Section -->
-<section class="banner">
-  <img src="../assets/images/background.jpg" alt="Banner Image" class="banner-img">
-</section>
+   <div class="banner" style="position: relative; text-align: center;">
+    <img src="../assets/images/homepage1.jpg" alt="Cleaning Services Banner" class="banner-img" style="width: 100%; height: auto;">
+    <h1 style="color: black; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 2.5em; background-color: rgba(255, 255, 255, 0.7); padding: 10px; border-radius: 5px;">
+        Welcome to Clean Connect, <?php echo $userName; ?>!
+    </h1>
+    </div>
+
 
 
   <main class="admin-main">
@@ -123,7 +128,7 @@ $pendingCleanersCount = $pendingCleanersResult->num_rows; // Number of pending c
             <th>Status</th>
             <th>Experience</th>
             <th>Bio</th>
-            <th>Action</th>
+            <th>Cleaner Status</th>
         </tr>
     </thead>
     <tbody>

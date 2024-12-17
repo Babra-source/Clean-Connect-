@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['role'] = $user['role'];
 
             if ($user['role'] === 'Admin') {
-                header('Location: ../view/admindashboard.php'); // Redirect to Admin dashboard
+                header('Location: ../view/AdminDashboard.php'); // Redirect to Admin dashboard
             } elseif ($user['role'] === 'Cleaner') {
                 header('Location: ../view/CleanerDashboard.php'); // Redirect to cleaner dashboard
             } elseif ($user['role'] === 'Client') {

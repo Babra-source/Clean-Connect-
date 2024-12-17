@@ -8,17 +8,27 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+
+        <header>
+                <div class="logo">
+                    <h1>Clean Connect</h1> 
+                </div>
+                <!-- Back Button Section -->
+                <button onclick="goBack()" style="padding: 10px 20px; font-size: 16px; cursor: pointer;">Go Back</button>
+        </header>
     <div class="container">
 
+         
 
-        <!-- Back Button Section -->
-      
-        <button onclick="goBack()" style="padding: 10px 20px; font-size: 16px; cursor: pointer;">Go Back</button>
         
+      
+
 
         <section id="about">
-            <h1>About Us</h1>
-            <p>Welcome to Cleaner Connect</p>
+        <h1>About Us</h1>
+        <p style="font-size: 1.5rem;">Connecting Cleaners to Homes, Effortlessly.</p>
+
+
         </section>
 
         <section id="our-story">
@@ -29,7 +39,7 @@
                 that exceed customer expectations. Today, Cleaner Connect continues to uphold its mission of promoting trust, reliability, 
                 and excellence in the cleaning industry.</p>
 
-            <img src="../assets/images/homepage1.jpg" alt="Co-Founders [Co-Founder 1 Name] and [Co-Founder 2 Name]" style="width: 100%; border-radius: 8px; margin-top: 1rem;">
+            <img src="../assets/images/group.jpg" alt="Co-Founders [Co-Founder 1 Name] and [Co-Founder 2 Name]" style="width: 100%; border-radius: 8px; margin-top: 1rem;">
         </section>
 
         <section id="co-founders">
@@ -60,7 +70,7 @@
         <section id="our-work">
             <h2>Our Work</h2>
             <div class="gallery">
-                <img src="../assets/images/homepage1.jpg" alt="Cleaning Service 1">
+                <img src="../assets/images/Work.png" alt="Cleaning Service ">
             </div>
         </section>
 

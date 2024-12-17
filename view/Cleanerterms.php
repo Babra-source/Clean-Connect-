@@ -3,7 +3,7 @@
 
     include '../db/config.php'; 
     session_start(); // Add a semicolon here
-
+    $_SESSION['userid'] = $userid; 
     // Assuming you have a database connection established as $conn
     $query = "SELECT serviceid, servicename FROM services";
     $result = mysqli_query($conn, $query);
@@ -23,18 +23,22 @@
 <body>
     <!-- Header Section -->
     <header>
-        <div class="logo">
-            <h1>Clean Connect Hub</h1>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="../view/index.php">Home</a></li>
-                <li><a href="#demand">Requirements</a></li>
-                <li><a href="#contractForm">Apply</a></li>
-                <li><a href="#Wayforward">Process</a></li>
-            </ul>
-        </nav>
-    </header>
+            <div class="logo">
+                <h1>Clean Connect Hub</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../view/index.php">Home</a></li>
+                    <li><a href="#demand">Requirements</a></li>
+                    <li><a href="#contractForm">Apply</a></li>
+                    <li><a href="#Wayforward">Process</a></li>
+                    
+                    <li><button onclick="goBack()">Go Back</button><li>
+
+                </ul>
+            </nav>
+</header>
+
 
     <!-- Banner Section -->
     <section id="banner">
@@ -65,7 +69,7 @@
                 <section id="demand">
                     <h1>What it takes to be a Cleaner</h1>
                     <ul class="demands-list">
-                        <li><i class="bi bi-check-circle check-icon"></i><strong>Attention to Detail:</strong> Cleaners must have a keen eye for detail to ensure that every area is thoroughly cleaned and maintained.</li>
+                        <li><i class="bi bi-check-circle check-icon"></i><b>Attention to Detail:</b> Cleaners must have a keen eye for detail to ensure that every area is thoroughly cleaned and maintained.</li>
                         <li><i class="bi bi-check-circle check-icon"></i><strong>Physical Stamina:</strong> The job requires physical endurance, as cleaning can be physically demanding, involving long hours of standing, bending, and moving.</li>
                         <li><i class="bi bi-check-circle check-icon"></i><strong>Time Management:</strong> Cleaners must be able to efficiently manage their time and prioritize tasks to meet cleaning deadlines.</li>
                         <li><i class="bi bi-check-circle check-icon"></i><strong>Knowledge of Cleaning Techniques:</strong> Knowledge of different cleaning methods, materials, and equipment is essential for ensuring effective and safe cleaning.</li>
@@ -73,6 +77,7 @@
                         <li><i class="bi bi-check-circle check-icon"></i><strong>Health and Safety Awareness:</strong> Understanding and following health and safety guidelines is essential to avoid hazards while cleaning.</li>
                         <li><i class="bi bi-check-circle check-icon"></i><strong>Customer Service Skills:</strong> For cleaners working in customer-facing environments, good communication and customer service skills are important to interact professionally with clients.</li>
                     </ul>
+
                     <p>By possessing these qualities and skills, a cleaner can contribute to a healthier and more comfortable environment for everyone.</p>
                 </section>
 

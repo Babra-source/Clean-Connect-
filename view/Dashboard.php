@@ -14,7 +14,10 @@ if (isset($_SESSION['userid'])) {
     $queryUpcoming = "SELECT COUNT(*) AS upcoming_count 
                       FROM bookings 
                       WHERE bookingdate >= CURDATE() AND status = 'Pending' AND clientid = '$userId'";
+
     $resultUpcoming = mysqli_query($conn, $queryUpcoming);
+
+
     $upcomingCount = mysqli_fetch_assoc($resultUpcoming)['upcoming_count'];
 
     $queryPast = "SELECT COUNT(*) AS past_count 
@@ -66,15 +69,10 @@ if (isset($_SESSION['userid'])) {
     </div>
     <nav>
         <ul>
-            <li><a href="view/" class="nav-link">Homepage</a></li>
-            <li><a href="view/About.php" class="nav-link">About Page</a></li>
             <li><a href="../view/ServicesPage.php" class="nav-link">Services Page</a></li>
-            <li><a href="../view/ProfilePage.php" class="nav-link">
-                <i class="fas fa-user"></i> 
-            </a></li>
-            <li><a href="../actions/logout.php" class="nav-link">
-                <i class="fas fa-sign-out-alt"></i>
-            </a></li>
+            <li><a href="view/About.php" class="nav-link">About Page</a></li>
+            <li><a href="../actions/logout.php" class="nav-link">Logout </a></li>
+            
         </ul>
     </nav>
 </header>
@@ -86,11 +84,6 @@ if (isset($_SESSION['userid'])) {
             <i class="fas fa-calendar-check"></i>
             <h3>Current Bookings</h3>
             <p><?php echo $upcomingCount; ?> Bookings</p>
-        </div>
-        <div class="stat-card">
-            <i class="fas fa-history"></i>
-            <h3>Past Bookings</h3>
-            <p><?php echo $pastCount; ?> Bookings</p>
         </div>
     </section>
 
@@ -115,7 +108,7 @@ if (isset($_SESSION['userid'])) {
                     ?>
                         </h3>
                         <p>Booking Date: <?php echo htmlspecialchars($activity['BookingDate']); ?></p>
-                        <p>Status: <?php echo htmlspecialchars($activity['Status']); ?></p>
+                       
                                     </div>
                         </div>
                     </div>

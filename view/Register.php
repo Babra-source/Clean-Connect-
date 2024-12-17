@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../assets/css/register.css">
 
 
-    <body style = "background-image: url('../assets/images/background.jpg')">
+    <body style="background-image: url('../assets/images/imagebackground.jpg')">
 
     <div class="form-container">
         <h1><b>The Clean Connect Hub </b></h1>

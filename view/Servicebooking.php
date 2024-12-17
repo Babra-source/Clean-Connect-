@@ -70,11 +70,8 @@ $cleanersSql = "
         
         <nav>
             <ul>
-                <li><a href="../view/index.php" class="nav-link">Homepage</a></li>
-                <li><a href="../view/logout.php" class="nav-link">Logout</a></li>
-                <li><a href="../view/Cleanerterms.php" class="nav-link">Be A Cleaner</a></li>
-                <li><a href="../view/login.php" class="nav-link">Sign In</a></li>
-                <li><a href="../view/Register.php" class="nav-link">Sign Up</a></li>
+                <li><a href="javascript:history.back()" class="nav-link">Go Back</a></li>
+                <li><a href="../actions/logout.php" class="nav-link">Logout</a></li>
                 <li><a href="../view/AboutPage.php" class="nav-link">About Page</a></li>
             </ul>
         </nav>
@@ -106,7 +103,7 @@ $cleanersSql = "
                 while ($cleaner = $cleanersResult->fetch_assoc()) {
                     $cleanerFullName = htmlspecialchars($cleaner['fname'] . ' ' . $cleaner['lname']);
                     $cleanerBio = htmlspecialchars($cleaner['bio']);
-                    $cleanerImage = !empty($cleaner['profile_image']) ? '../uploads/' . htmlspecialchars($cleaner['profile_image']) : 'https://via.placeholder.com/300x200';
+                    $cleanerImage = !empty($cleaner['profile_image']) ? '../uploads/' . htmlspecialchars($cleaner['profile_image']) : '../assets/images/cleaner.jpg';
             ?>
             <div class="col-md-4 cleaner-card" data-cleaner="<?php echo $cleanerFullName; ?>">
                 <div class="card">
@@ -116,8 +113,7 @@ $cleanersSql = "
                         <p class="card-text"><?php echo $cleanerBio; ?></p>
                         <button class="btn btn-primary" onclick="showCleanerInfo('<?php echo $cleanerFullName; ?>', '<?php echo $cleanerBio; ?>')">Show Details</button>
                         <button type="button" class="btn btn-success mt-2" 
-                            onclick="viewCleanerProfile('<?php echo $cleaner['cleaner_id']; ?>', '<?php echo $serviceid; ?>')">
-                            Book <?php echo $cleaner['cleaner_id']; ?>
+                            onclick="viewCleanerProfile('<?php echo $cleaner['cleaner_id']; ?>', '<?php echo $serviceid; ?>')">Book 
                         </button>
                     </div>
                 </div>
@@ -195,7 +191,7 @@ $cleanersSql = "
 
         function viewCleanerProfile(cleanerId, serviceId) {
             // Redirect to the cleaner profile page with cleanerId and serviceId as query parameters
-            window.location.href = `bookingpage.php?cleanerid=${cleanerId}&serviceid=${serviceId}`;
+            window.location.href = `../view/BookingPage.php?cleanerid=${cleanerId}&serviceid=${serviceId}`;
         }
 
     </script>
