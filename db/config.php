@@ -3,7 +3,7 @@
 $servername = 'localhost'; // The server where the database is hosted
 $username = 'beatrice.abraham';  //bea.last      // The username to access the database
 $password = 'techweb@admin';      //pass      
-$dbname = 'webtech_fall2024_beatrice_abraham'; 
+$dbname = ''; 
 
 // Attempt to connect to the database using the provided details
 $conn = mysqli_connect($servername, $username, $password, $dbname) 
